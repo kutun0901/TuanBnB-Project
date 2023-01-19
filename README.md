@@ -4,7 +4,7 @@
 
 ![airbnb-dbdiagram]
 
-[airbnb-dbdiagram]: ../mod4_docs_for_stoods/assets/airbnb_dbdiagram.png
+[airbnb-dbdiagram]: airbnb_dbdiagram.png
 
 ## API Documentation
 
