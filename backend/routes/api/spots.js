@@ -77,7 +77,11 @@ router.get('/', async(req, res, next) => {
     })
 
     const avgRatings = sumOfRating/numberOfRating;
-    pojoSpot.avgRating = avgRatings;
+    if (avgRatings) {
+      pojoSpot.avgRating = avgRatings;
+    } else {
+      pojoSpot.avgRating = "not available"
+    }
 
     const previewImg = await SpotImage.findOne({
       where: {
@@ -85,7 +89,11 @@ router.get('/', async(req, res, next) => {
       }
     })
 
-    pojoSpot.previewImage = previewImg.url;
+    if (previewImg) {
+      pojoSpot.previewImage = previewImg.url;
+    } else {
+      pojoSpot.previewImage = 'not available'
+    }
 
     payLoad.push(pojoSpot)
   }
@@ -134,7 +142,11 @@ router.get('/current', requireAuth, async (req, res, next) => {
     })
 
     const avgRatings = sumOfRating/numberOfRating;
-    pojoSpot.avgRating = avgRatings;
+    if (avgRatings) {
+      pojoSpot.avgRating = avgRatings;
+    } else {
+      pojoSpot.avgRating = "not available"
+    }
 
     const previewImg = await SpotImage.findOne({
       where: {
@@ -142,7 +154,11 @@ router.get('/current', requireAuth, async (req, res, next) => {
       }
     })
 
-    pojoSpot.previewImage = previewImg.url;
+    if (previewImg) {
+      pojoSpot.previewImage = previewImg.url;
+    } else {
+      pojoSpot.previewImage = 'not available'
+    }
 
     payLoad.push(pojoSpot)
   }
@@ -187,7 +203,12 @@ router.get('/:spotId', async (req, res, next) => {
       }
     })
 
-    pojoSpot.avgStarRating = sumOfRating/numberOfRating;
+    const avgRatings = sumOfRating/numberOfRating;
+    if (avgRatings) {
+      pojoSpot.avgStarRating = avgRatings;
+    } else {
+      pojoSpot.avgStarRating = "not available"
+    }
 
     pojoSpot.spotImages = await SpotImage.findAll({
       where: {
@@ -200,7 +221,7 @@ router.get('/:spotId', async (req, res, next) => {
       ]
     })
 
-    pojoSpot.Owner = await User.findByPk(spotId, {
+    pojoSpot.Owner = await User.findByPk(spot.ownerId, {
       attributes: [
         'id',
         'firstName',
@@ -242,6 +263,7 @@ router.post('/', requireAuth, validateSpot, async(req, res, next) => {
   return res.json(newSpot);
 })
 
+//Add an Image to a Spot based on the Spot's id
 router.post('/:spotId/images', requireAuth, async(req, res, next) => {
   const {user} = req;
   const spotId = req.params.spotId;
@@ -251,7 +273,7 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
   const spot = await Spot.findByPk(spotId);
 
   if (spot){
-    if (user.id = spot.ownerId) {
+    if (user.id === spot.ownerId) {
       const img = await SpotImage.create({
         spotId,
         url,
@@ -261,6 +283,11 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
         id: img.id,
         url,
         preview,
+      })
+    } else {
+      res.status(403)
+      res.json({
+        "message" : "spot must belong to user"
       })
     }
   }
@@ -307,6 +334,30 @@ router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
         "statusCode": 404
       }
     )
+  }
+})
+
+//delete a spot
+router.delete('/:spotId', requireAuth, async(req, res, next) => {
+  const {user} = req;
+  const spotId = req.params.spotId;
+
+  const spot = await Spot.findByPk(spotId);
+
+  if (spot) {
+    if (user.id = spot.ownerId) {
+      await Spot.destroy();
+      return res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+      })
+    }
+  } else {
+    res.status(404);
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
   }
 })
 
