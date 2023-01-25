@@ -6,6 +6,42 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+const validateSpot = [
+  check('address')
+    .notEmpty()
+    .withMessage('Street address is required'),
+  check('city')
+    .notEmpty()
+    .withMessage('City is required'),
+  check('state')
+    .notEmpty()
+    .withMessage('State is required.'),
+  check('country')
+    .notEmpty()
+    .withMessage('Country is required'),
+  check('lat')
+    .notEmpty()
+    .isNumeric()
+    .withMessage('Latitude is not valid'),
+  check('lng')
+    .notEmpty()
+    .isNumeric()
+    .withMessage('Longitude is not valid'),
+  check('name')
+    .notEmpty()
+    .isLength({max: 50})
+    .withMessage('Name must be less than 50 characters'),
+  check('description')
+    .notEmpty()
+    .withMessage('Description is required'),
+  check('price')
+    .notEmpty()
+    .isNumeric()
+    .withMessage('Price per day is required'),
+  handleValidationErrors
+];
+
+//Get all Spots
 router.get('/', async(req, res, next) => {
   const spots = await Spot.findAll({
     attributes: [
@@ -57,12 +93,14 @@ router.get('/', async(req, res, next) => {
   res.json({Spots: payLoad})
 });
 
+
+//Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res, next) => {
-  const id = req.user.id
-  console.log(req);
+  const {user} = req;
+
   const spots = await Spot.findAll({
     where: {
-      ownerId: id,
+      ownerId: user.id,
     },
     attributes: [
       'id',
@@ -109,13 +147,15 @@ router.get('/current', requireAuth, async (req, res, next) => {
     payLoad.push(pojoSpot)
   }
 
+
   res.json({Spots: payLoad})
 })
 
+//Get details of a Spot from an id
 router.get('/:spotId', async (req, res, next) => {
-  const id = req.params.spotId;
+  const spotId = req.params.spotId;
 
-  const spot = await Spot.findByPk(id, {
+  const spot = await Spot.findByPk(spotId, {
 
     attributes: [
       'id',
@@ -133,31 +173,21 @@ router.get('/:spotId', async (req, res, next) => {
       "updatedAt",
     ]
   })
-  if (!spot) {
-    res.status(404);
-    return res.json(
-      {
-        "message": "Spot couldn't be found",
-        "statusCode": 404
-      }
-    )
-  }
 
-    let pojoSpot = spot.toJSON();
-    const sumOfRating = await Review.sum('stars', {
-      where: {
-        spotId: spot.id,
-      }
-    })
+  let pojoSpot = spot.toJSON();
+  const sumOfRating = await Review.sum('stars', {
+    where: {
+      spotId: spot.id,
+    }
+  })
 
-    const numberOfRating = await Review.count({
+  const numberOfRating = await Review.count({
       where: {
         spotId: spot.id,
       }
     })
 
     pojoSpot.avgStarRating = sumOfRating/numberOfRating;
-
 
     pojoSpot.spotImages = await SpotImage.findAll({
       where: {
@@ -170,8 +200,7 @@ router.get('/:spotId', async (req, res, next) => {
       ]
     })
 
-
-    pojoSpot.Owner = await User.findByPk(id, {
+    pojoSpot.Owner = await User.findByPk(spotId, {
       attributes: [
         'id',
         'firstName',
@@ -179,9 +208,106 @@ router.get('/:spotId', async (req, res, next) => {
       ]
     })
 
-  res.json(pojoSpot)
+    if (!spot) {
+      res.status(404);
+      return res.json(
+        {
+          "message": "Spot couldn't be found",
+          "statusCode": 404
+        }
+      )
+    }
+
+    res.json(pojoSpot)
 })
 
+//Create a Spot
+router.post('/', requireAuth, validateSpot, async(req, res, next) => {
+  const {address, city, state, country, lat, lng, name, description, price} = req.body;
+  const {user} = req;
 
+  const newSpot = await Spot.create({
+    ownerId: user.id,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price
+  })
+
+  return res.json(newSpot);
+})
+
+router.post('/:spotId/images', requireAuth, async(req, res, next) => {
+  const {user} = req;
+  const spotId = req.params.spotId;
+
+  const {url, preview} = req.body;
+
+  const spot = await Spot.findByPk(spotId);
+
+  if (spot){
+    if (user.id = spot.ownerId) {
+      const img = await SpotImage.create({
+        spotId,
+        url,
+        preview,
+      })
+      return res.json({
+        id: img.id,
+        url,
+        preview,
+      })
+    }
+  }
+  else {
+  res.status(404);
+  return res.json(
+    {
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    }
+  )
+}
+})
+
+//Edit a Spot
+router.put('/:spotId', requireAuth, validateSpot, async(req, res, next) => {
+  const {address, city, state, country, lat, lng, name, description, price} = req.body;
+  const {user} = req;
+  const spotId = req.params.spotId;
+
+  const spot = await Spot.findByPk(spotId);
+  if (spot) {
+    if (user.id === spot.ownerId) {
+      await spot.update({
+        ownerId: user.id,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+      })
+      return res.json(spot)
+    }
+  }
+  else {
+    res.status(404);
+    return res.json(
+      {
+        "message": "Spot couldn't be found",
+        "statusCode": 404
+      }
+    )
+  }
+})
 
 module.exports = router;
