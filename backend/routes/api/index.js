@@ -3,7 +3,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const { restoreUser } = require('../../utils/auth.js');
 const spotsRouter = require('./spots.js')
-// const bookingRouter = require('./bookings')
+const bookingRouter = require('./bookings.js')
 
 router.use(restoreUser);
 
@@ -12,6 +12,8 @@ router.use('/spots', spotsRouter);
 router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
+
+router.use('/bookings', bookingRouter);
 
 
 // router.post('/test', function(req, res) {
