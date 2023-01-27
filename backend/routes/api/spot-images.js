@@ -33,7 +33,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
     } else {
         res.status(403);
         return res.json({
-            "message": "authorization required",
+            "message": "Forbidden",
             "statusCode": 403
         })
     }

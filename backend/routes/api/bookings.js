@@ -139,7 +139,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         } else if (user.id !== Booking.userId) {
             res.status(400)
             return res.json({
-                "message": "Authorization required",
+                "message": "Forbidden",
                 "statusCode": 400
             })
         }

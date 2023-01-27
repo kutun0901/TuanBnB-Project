@@ -110,7 +110,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     } else if (reviewImages.length < 10 && user.id !== review.userId){
         res.status(403);
         return res.json({
-            "message": "authorization required",
+            "message": "Forbidden",
             "statusCode": 403
         })
     }
@@ -142,7 +142,7 @@ router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
     } else {
         res.status(403);
         return res.json({
-            "message": "authorization required",
+            "message": "Forbidden",
             "statusCode": 403
         })
     }
@@ -172,7 +172,7 @@ router.delete('/:reviewId', requireAuth, async(req, res, next) => {
     } else {
         res.status(403);
         return res.json({
-            "message": "authorization required",
+            "message": "Forbidden",
             "statusCode": 403
         })
     }
