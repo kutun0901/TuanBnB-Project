@@ -148,4 +148,34 @@ router.put('/:reviewId', requireAuth, validateReview, async(req, res, next) => {
     }
 })
 
+//delete a review
+router.delete('/:reviewId', requireAuth, async(req, res, next) => {
+    const {user} = req;
+    const reviewId = req.params.reviewId;
+
+    const targetReview = await Review.findByPk(reviewId);
+
+    if (!targetReview) {
+        res.status(404);
+        return res.json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+    if (user.id === targetReview.userId) {
+        await targetReview.destroy();
+        return res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+          })
+    } else {
+        res.status(403);
+        return res.json({
+            "message": "authorization required",
+            "statusCode": 403
+        })
+    }
+})
+
 module.exports = router;
