@@ -394,8 +394,13 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
       price
     })
     return res.json(spot)
+  } else {
+    res.status(403)
+    res.json({
+      "message": "forbidden",
+      "statusCode": 403
+    })
   }
-
 
 })
 
@@ -405,20 +410,25 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
   const spotId = req.params.spotId;
 
   const spot = await Spot.findByPk(spotId);
-
-  if (spot) {
-    if (user.id = spot.ownerId) {
-      await Spot.destroy();
-      return res.json({
-        "message": "Successfully deleted",
-        "statusCode": 200
-      })
-    }
-  } else {
+  if (!spot) {
     res.status(404);
     return res.json({
       "message": "Spot couldn't be found",
       "statusCode": 404
+    })
+  }
+
+  if (user.id === spot.ownerId) {
+    await spot.destroy();
+    return res.json({
+      "message": "Successfully deleted",
+      "statusCode": 200
+    })
+  } else {
+    res.status(403);
+    res.json({
+      "message": "forbidden",
+      "statusCode": 403
     })
   }
 })
@@ -430,7 +440,14 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
   const spot = await Spot.findByPk(spotId)
 
-  if (spot) {
+  if (!spot) {
+    res.status(404);
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
     if (user.id === spot.ownerId) {
       const bookings = await Booking.findAll({
         where: {
@@ -451,13 +468,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
       })
       return res.json({ Bookings: bookings })
     }
-  } else {
-    res.status(404);
-    return res.json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    })
-  }
+
 })
 
 

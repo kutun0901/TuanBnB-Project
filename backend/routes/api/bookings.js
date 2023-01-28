@@ -47,10 +47,13 @@ router.get('/current', requireAuth, async (req, res, next) => {
 //Edit a booking
 router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const bookingId = req.params.bookingId;
-    const booking = await Booking.findByPk(bookingId); //find the booking that want to edit
     const { user } = req;
     const { startDate, endDate } = req.body;
     const currentDate = new Date().getTime(); //to deal with edit booking in the past
+    const newStartDate = new Date(startDate).getTime(); //convert to a comparable values
+    const newEndDate = new Date(endDate).getTime();
+
+    const booking = await Booking.findByPk(bookingId); //find the booking that want to edit
 
     if (!booking) {
         res.status(404);
@@ -73,9 +76,6 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
             spotId: booking.spotId,
         }
     })
-
-    const newStartDate = new Date(startDate).getTime(); //convert to a comparable values
-    const newEndDate = new Date(endDate).getTime();
 
 
     if (user.id === booking.userId) {
@@ -127,21 +127,11 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
                 {
                     startDate,
                     endDate
-                },
-                {
-                    where: {
-                        id: bookingId,
-                    }
                 }
             )
-            const updatedBooking = await Booking.findOne({
-                where: {
-                    id: bookingId
-                }
-            })
-            return res.json(updatedBooking);
+            return res.json(booking);
         }
-    } else if (user.id !== Booking.userId) {
+    } else if (user.id !== booking.userId) {
         res.status(400)
         return res.json({
             "message": "Forbidden",
@@ -181,13 +171,19 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
                 "statusCode": 403
             })
         }
-        console.log('hello');
+
         await booking.destroy();
         return res.json({
             "message": "Successfully deleted",
             "statusCode": 200
         })
-    } else { return res.json({ "message": 'test' }) }
+    } else {
+        res.status(403)
+        return res.json({
+            "message": "forbidden",
+            "statusCode": 403
+        })
+    }
 
 
 })
