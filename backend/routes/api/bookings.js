@@ -6,6 +6,17 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+
+const validateBooking = [
+    check("startDate")
+      .exists({ checkFalsy: true })
+      .withMessage("Please provide a valid startDate"),
+    check("endDate")
+      .exists({ checkFalsy: true })
+      .withMessage("Please provide a valid endDate"),
+    handleValidationErrors,
+  ];
+
 //Get all of the Current User's Bookings
 router.get('/current', requireAuth, async (req, res, next) => {
     const { user } = req;
@@ -45,7 +56,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
 
 //Edit a booking
-router.put('/:bookingId', requireAuth, async (req, res, next) => {
+router.put('/:bookingId', requireAuth, validateBooking,async (req, res, next) => {
     const bookingId = req.params.bookingId;
     const { user } = req;
     const { startDate, endDate } = req.body;

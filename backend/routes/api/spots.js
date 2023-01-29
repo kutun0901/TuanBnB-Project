@@ -51,7 +51,17 @@ const validateReview = [
     .isFloat({ min: 1, max: 5 })
     .withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
-]
+];
+
+const validateBooking = [
+  check("startDate")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a valid startDate"),
+  check("endDate")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a valid endDate"),
+  handleValidationErrors,
+];
 
 const validateQuery = [
   check('page')
@@ -87,7 +97,7 @@ const validateQuery = [
     .optional()
     .withMessage('Maximum price must be greater than or equal to 0'),
   handleValidationErrors
-]
+];
 
 //Get all Spots
 router.get('/', validateQuery, async (req, res, next) => {
@@ -555,7 +565,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 })
 
 //Create a Booking from a Spot based on the Spot's id
-router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
   const spotId = req.params.spotId;
   const { user } = req;
   const { startDate, endDate } = req.body;
