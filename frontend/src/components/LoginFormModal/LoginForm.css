@@ -1,0 +1,36 @@
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 100px auto;
+    width: 400px;
+
+}
+
+.login-form h1 {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 24pt;
+    font-style: bold;
+}
+
+.login-form input {
+
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    box-shadow: 3px 3px 3px;
+  }
+
+  .login-form button {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #FF5A5F;
+    padding: 10px;
+    box-shadow: 3px 3px 3px;
+  }
