@@ -1,3 +1,33 @@
 .hidden {
     display: none;
 }
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+    height: 60px;
+    padding: 0 20px;
+    border-bottom: 1px solid black;
+  }
+
+  .logo-title {
+    text-decoration: none;
+  }
+
+  .hambuger-button {
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    align-items: center;
+    column-gap: 5px;
+    border-radius: 30px;
+    height: 40px;
+    width: 50px;
+    justify-content: center;
+  }
+
+  .hambuger-button:hover {
+    box-shadow: 1px 1px 5px 1px lightgray;
+  }
