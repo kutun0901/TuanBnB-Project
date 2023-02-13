@@ -20,22 +20,22 @@ module.exports = {
     options.tableName = 'SpotImages';
     return queryInterface.bulkInsert(options, [
       {
-        url: 'https://www.pexels.com/photo/photo-of-house-2980955/',
+        url: 'https://img.staticmb.com/mbcontent//images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg',
         preview: true,
         spotId: 1,
       },
       {
-        url: 'https://www.pexels.com/photo/brown-wooden-house-with-pool-2480608/',
+        url: 'https://www.designboom.com/twitterimages/uploads/2019/12/niko-architect-house-in-the-landscape-moscow-designboom-1200.jpg',
         preview: true,
         spotId: 2,
       },
       {
-        url: 'https://www.pexels.com/photo/brown-wooden-house-during-snow-950058/',
+        url: 'https://www.thespruce.com/thmb/dDeobutJDNWPnpq89eL9A-JgRwc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/craftsman-homes-5070211-hero-e13889c50bec48a386a8b51b25f748c1.jpg',
         preview: true,
         spotId: 3,
       },
       {
-        url: 'https://www.pexels.com/photo/brown-house-on-field-2351649/',
+        url: 'https://images.squarespace-cdn.com/content/v1/57c837262e69cf6dc3c7ef62/1586359275166-WBMR1SZ4PPF48FZQE66O/Beach-House-Architecture-Delaware-Maryland-Custom-Small.jpg',
         preview: true,
         spotId: 4,
       },
