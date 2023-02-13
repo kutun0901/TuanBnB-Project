@@ -44,7 +44,7 @@
   box-shadow: 2px 2px 2px black;
 }
 
-.login-button.disabled {
+.login-button[disabled] {
   background-color: white;
   color: lightgrey;
   box-shadow: 2px 2px 2px lightgray;

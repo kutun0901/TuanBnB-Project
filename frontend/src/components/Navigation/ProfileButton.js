@@ -40,7 +40,7 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
+    <div className="profile-container">
       <button className="hambuger-button" onClick={openMenu}>
         <i className="fas fa-bars" />
         <i className="fas fa-user-circle" />
@@ -70,7 +70,7 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 
