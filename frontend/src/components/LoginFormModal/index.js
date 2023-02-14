@@ -24,33 +24,44 @@ function LoginFormModal() {
       );
   };
 
-  return (
-    <div className="login-form">
-      <h1>Log In</h1>
-      <form  onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <input
-          placeholder="Username or Email"
-          type="text"
-          value={credential}
-          onChange={(e) => setCredential(e.target.value)}
-          required
-        />
+  const demoUser = () => {
+    return dispatch(sessionActions.login({credential: 'Demo-lition', password: 'password'}))
+    .then(closeModal)
+  }
 
-        <input
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Log In</button>
-      </form>
-    </div>
+  return (
+    <>
+      <div className="login-container">
+        <h1>Log In</h1>
+        <form onSubmit={handleSubmit} className='login-form'>
+          <ul>
+            {errors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+          </ul>
+          <div className="input-div">
+              <input
+              placeholder="Username or Email"
+                type="text"
+                value={credential}
+                onChange={(e) => setCredential(e.target.value)}
+                required
+              />
+          </div >
+          <div className="input-div">
+              <input
+              placeholder="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+          </div>
+          <button type="submit" className="login-button" disabled={password.length < 6 || credential.length < 4}>Log In</button>
+        </form>
+        <button className="demo-user" onClick={demoUser}>Demo User</button>
+      </div>
+    </>
   );
 }
 
