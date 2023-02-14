@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import './spots.css'
 import { Link } from "react-router-dom"
+import SpotDetails from "../SpotDetails";
 
 function Spots() {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function Spots() {
 
 
     const allSpotArr = Object.values(spots)
-    console.log(allSpotArr);
+    // console.log(allSpotArr);
 
     return (
         <>

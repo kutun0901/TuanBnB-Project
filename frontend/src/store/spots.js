@@ -9,10 +9,10 @@ export const loadSpots = (spots) => ({
     spots
 })
 
-export const loadSpot = (spot) => {
+export const loadSpot = (spot) => ({
     type: LOAD_SINGLE_SPOT,
     spot
-}
+})
 
 ///thunks
 export const loadAllSpots = () => async (dispatch) => {
@@ -26,20 +26,28 @@ export const loadAllSpots = () => async (dispatch) => {
 
 export const loadSingleSpot = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}`)
+
+    if (res.ok) {
+        const spot = await res.json();
+        console.log(spot);
+        dispatch(loadSpot(spot))
+    }
+
 }
 
-const initialState = {allSpots: {}}
+const initialState = {allSpots: {}, singleSpot: {}}
 
 //reducer
 const spotReducer = (state = initialState, action) => {
-    let newState = {...state}
     switch (action.type) {
         case LOAD_SPOTS:
+            const allSpots = {}
             action.spots.Spots.map(spot=>{
-                newState.allSpots[spot.id] = spot
+                allSpots[spot.id] = spot
             })
-            newState = {...state, allSpots: {...newState.allSpots}}
-            return newState
+            return {...state, allSpots: allSpots}
+        case LOAD_SINGLE_SPOT:
+            return {...state, singleSpot: {...action.spot}}
         default:
             return state
     }
