@@ -272,6 +272,14 @@ router.get('/:spotId', async (req, res, next) => {
   }
 
   let pojoSpot = spot.toJSON();
+
+  pojoSpot.numReviews = await Review.count({
+    where: {
+      spotId: spotId
+    }
+  })
+
+
   const sumOfRating = await Review.sum('stars', {
     where: {
       spotId: spot.id,
