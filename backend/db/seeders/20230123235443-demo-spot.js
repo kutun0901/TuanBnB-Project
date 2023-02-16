@@ -67,6 +67,30 @@ module.exports = {
         price: 50,
         ownerId: 3,
       },
+      {
+        address: "22 sub",
+        city: "Orlando",
+        state: "Florida",
+        country: "United States",
+        lat: 114.5556,
+        lng: 2.4445,
+        name: "Guest Suite",
+        description: "Comfy studio 5 min from Airport.",
+        price: 70.99,
+        ownerId: 1,
+      },
+      {
+        address: "22 sub",
+        city: "Orlando",
+        state: "Florida",
+        country: "United States",
+        lat: 114.5556,
+        lng: 2.4445,
+        name: "Guest Suite",
+        description: "Comfy studio 5 min from Airport.",
+        price: 70.99,
+        ownerId: 1,
+      }
     ])
   },
 
