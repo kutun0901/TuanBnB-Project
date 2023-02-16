@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import './spots.css'
 import { Link } from "react-router-dom"
-import SpotDetails from "../SpotDetails";
+
 
 function Spots() {
     const dispatch = useDispatch();
@@ -14,9 +14,9 @@ function Spots() {
         dispatch(loadAllSpots())
     }, [dispatch])
 
+    if (!spots || Object.keys(spots).length === 0) return null;
 
-    const allSpotArr = Object.values(spots)
-    // console.log(allSpotArr);
+    const allSpotArr = Object.values(spots);
 
     return (
         <>
@@ -24,7 +24,7 @@ function Spots() {
                 {allSpotArr.map(spot => {
                     return (
                         <div className="single-spot">
-                            <Link to={`/spots/${spot.id}`} key={`spot.id`}>
+                            <Link to={`/spots/${spot.id}`} key={spot.id}>
                                 <div className="img-container" >
                                     <img src={spot.previewImage}
                                         alt="preview-img" />
@@ -32,7 +32,7 @@ function Spots() {
                             </Link>
                             <div className="spot-info">
                                 <div>{spot.city}, {spot.state}</div>
-                                <div><i class="fa-solid fa-star"></i> {spot.avgRating.toFixed(1)}</div>
+                                <div><i className="fa-solid fa-star"></i> {typeof spot.avgRating === 'number' ? spot.avgRating.toFixed(1) : 0}</div>
                             </div>
                             <div className="spot-info">{`$${spot.price} night`}</div>
                         </div>

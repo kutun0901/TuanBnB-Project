@@ -1,0 +1,49 @@
+.spotImg-container {
+    display: grid;
+    height: 450px;
+    width: 100%;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows:  50%;
+
+  }
+
+  .spotImg-container img {
+    width: 100%;
+    height: auto;
+  }
+
+  .spotImage1 {
+    grid-column-start: 0;
+    grid-column-end: 3;
+    grid-row-start: 0;
+    grid-row-end: 2;
+
+  }
+
+  .spotImage2 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 0;
+    grid-row-end: 1;
+  }
+
+  .spotImage3 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .spotImage4 {
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 0;
+    grid-row-end: 1;
+  }
+
+  .spotImage5 {
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
