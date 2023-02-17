@@ -493,6 +493,16 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 // Get all Reviews by a Spot's id
 router.get('/:spotId/reviews', async (req, res, next) => {
   const spotId = req.params.spotId;
+
+  const spot = await Spot.findByPk(spotId)
+  if (!spot) {
+    res.status(404)
+    return res.json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
   const spotReviews = await Review.findAll({
     where: {
       spotId: spotId,
@@ -509,15 +519,17 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     ]
   })
 
-  if (spotReviews.length === 0) {
-    res.status(404)
-    return res.json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    })
-  } else {
-    return res.json({ Reviews: spotReviews })
-  }
+  return res.json({ Reviews: spotReviews })
+
+//   if (spotReviews.length === 0) {
+//     res.status(404)
+//     return res.json({
+//       "message": "Spot couldn't be found",
+//       "statusCode": 404
+//     })
+//   } else {
+//     return res.json({ Reviews: spotReviews })
+//   }
 })
 
 //Create a Review for a Spot based on the Spot's id
