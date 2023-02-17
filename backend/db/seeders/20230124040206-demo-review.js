@@ -22,26 +22,44 @@ module.exports = {
       {
         review: 'This is a dream house.',
         stars: 5,
-        spotId: 1,
+        spotId: 2,
         userId: 1,
       },
       {
         review: 'We enjoyed our stay so much!',
         stars: 4,
-        spotId: 2,
-        userId: 2,
+        spotId: 3,
+        userId: 1,
       },
       {
         review: 'There is no wifi at the place',
         stars: 3,
-        spotId: 3,
-        userId: 3,
+        spotId: 4,
+        userId: 1,
       },
       {
-        review: 'Awesome stay at this incredible location.',
+        review: ' Cras magna odio, blandit ut malesuada vitae, bibendum et arcu. Sed rutrum turpis dolor, sed rutrum justo tincidunt malesuada. Curabitur euismod ornare laoreet.',
+        stars: 4,
+        spotId: 1,
+        userId: 2,
+      },
+      {
+        review: 'Etiam molestie, arcu sit amet tempor iaculis, nisl risus condimentum orci, ut dignissim urna est ut lorem.',
+        stars: 4,
+        spotId: 3,
+        userId: 2,
+      },
+      {
+        review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
         stars: 4,
         spotId: 4,
         userId: 2,
+      },
+      {
+        review: 'Ut maximus tortor in blandit cursus. Vestibulum odio orci, pretium sed ante a, varius finibus nunc.',
+        stars: 4,
+        spotId: 1,
+        userId: 3,
       },
 
     ])

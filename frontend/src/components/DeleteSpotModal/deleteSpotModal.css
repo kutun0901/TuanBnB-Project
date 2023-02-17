@@ -1,0 +1,42 @@
+.delete-spot-container {
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+  /* border: 2px black solid; */
+  padding: 20px ;
+  background-color: white;
+
+}
+
+.confirm-title {
+    align-self: center;
+    font-size: 24px;
+}
+
+
+.yes {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #FF5A5F;
+    padding: 10px;
+    color: white;
+    border: 2px solid black;
+    box-shadow: 2px 2px 2px black;
+    margin-bottom: 10px;
+  }
+
+  .no {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: rgb(8, 134, 134);
+    padding: 10px;
+    color: white;
+    border: 2px solid black;
+    box-shadow: 2px 2px 2px black;
+    margin-top: 10px;
+  }
