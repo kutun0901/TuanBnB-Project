@@ -44,7 +44,7 @@ function CreateSpot() {
 
         setValidationErrors(error)
 
-    }, [country, address, city, state, lat, lng, name, description, price, url1, url2, url3, url4, url5])
+    }, [country, address, city, state, lat, lng, name, description, price])
 
     const handleSubmit = async e => {
 
@@ -63,7 +63,6 @@ function CreateSpot() {
 
 
         dispatch(createSpotThunk(payload, imgData))
-        // dispatch(addImgSpotThunk(imgData))
 
         history.push('/spots/current')
     }

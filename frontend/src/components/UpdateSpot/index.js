@@ -89,7 +89,7 @@ function UpdateSpot() {
        await dispatch(updateSpotThunk(spotId, payload))
 
 
-        history.push(`/spots/${spot.id}`)
+        history.push(`/spots/${spotId}`)
 
 
     }

@@ -1,0 +1,89 @@
+.rating-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .post-review-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 100px auto;
+    width: 400px;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+  }
+
+  .confirm-title {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 24pt;
+    font-weight: bold;
+    padding: 20px 20px;
+  }
+
+  #content-modal {
+    border-radius: 10px;
+  }
+
+  .review-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    border: 3px solid black;
+  }
+
+  .star-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .rating-button i {
+    font-size: 24px;
+    color: #d3d3d3;
+  }
+
+  .rating-button.on i {
+    color: #b9d51d;
+  }
+
+  span {
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #FF5A5F;
+    padding: 10px;
+    color: white;
+    border: 3px solid black;
+    box-shadow: 2px 2px 2px black;
+  }
+
+  button[type="submit"][disabled] {
+    background-color: white;
+    color: lightgrey;
+    box-shadow: 2px 2px 2px lightgray;
+    border: 3px solid black;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }

@@ -191,10 +191,7 @@ const spotReducer = (state = initialState, action) => {
 
         case UPDATE_SPOT:
 
-        return {...state,
-            userSpots: {...state.userSpots, ...action.spot },
-            singleSpot: {...state.singleSpot, ...action.spot},
-            allSpots: {...state.allSpots, ...action.spot} }
+        return {...state, userSpots: {...state.userSpots, ...action.spot }, singleSpot: {...state.singleSpot, ...action.spot}, allSpots: {...state.allSpots, ...action.spot} }
 
             // newState.allSpots[action.spot.id] = action.spot;
             // newState.userSpots[action.spot.id] = action.spot;

@@ -23,8 +23,8 @@ function Spots() {
             <div className="spots-container">
                 {allSpotArr.map(spot => {
                     return (
-                        <div className="single-spot">
-                            <Link to={`/spots/${spot.id}`} key={spot.id}>
+                        <div className="single-spot" key={spot.id}>
+                            <Link to={`/spots/${spot.id}`}>
                                 <div className="img-container" >
                                     <img src={spot.previewImage}
                                         alt="preview-img" />
@@ -32,7 +32,9 @@ function Spots() {
                             </Link>
                             <div className="spot-info">
                                 <div>{spot.city}, {spot.state}</div>
-                                <div><i className="fa-solid fa-star"></i> {typeof spot.avgRating === 'number' ? spot.avgRating.toFixed(1) : 0}</div>
+                                <div><i className="fa-solid fa-star"></i>{spot.avgRating !== null && !isNaN(parseFloat(spot.avgRating))
+                                    ? (parseFloat(spot.avgRating).toFixed(1)) : "New"}
+                                </div>
                             </div>
                             <div className="spot-info">{`$${spot.price} night`}</div>
                         </div>
