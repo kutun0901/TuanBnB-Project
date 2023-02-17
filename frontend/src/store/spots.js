@@ -9,20 +9,26 @@ const REMOVE_SPOT = 'spots/REMOVE_SPOT'
 const UPDATE_SPOT = 'spots/UPDATE_SPOT'
 
 //actions
-export const loadSpots = (spots) => ({
-    type: LOAD_SPOTS,
-    spots
-})
+export const loadSpots = (spots) => {
+    return {
+        type: LOAD_SPOTS,
+        spots
+    }
+}
 
-export const loadSpot = (spot) => ({
-    type: LOAD_SINGLE_SPOT,
-    spot
-})
+export const loadSpot = (spot) => {
+   return {
+       type: LOAD_SINGLE_SPOT,
+       spot
+   }
+}
 
-export const loadUserSpot = (userSpots) => ({
-    type: LOAD_USER_SPOT,
-    userSpots
-})
+export const loadUserSpot = (userSpots) => {
+    return {
+        type: LOAD_USER_SPOT,
+        userSpots
+    }
+}
 
 export const createSpot = (spot) => {
     return {
@@ -70,6 +76,7 @@ export const loadSingleSpotThunk = (spotId) => async (dispatch) => {
     if (res.ok) {
         const spot = await res.json();
         dispatch(loadSpot(spot))
+        // console.log(spot);
     }
 }
 
@@ -126,6 +133,7 @@ export const updateSpotThunk = (id, payload) => async (dispatch) => {
     })
     if (res.ok) {
         const data = await res.json()
+        // console.log(data);
         dispatch(updateSpot(data))
     }
 }
@@ -153,7 +161,7 @@ const spotReducer = (state = initialState, action) => {
             action.spots.Spots.forEach(spot => {
                 resObj[spot.id] = spot
             })
-            return { ...state, allSpots: resObj }
+            return { ...state, allSpots: resObj, singleSpot: {...state.singleSpot} }
 
         case LOAD_SINGLE_SPOT:
             return { ...state, singleSpot: action.spot }
@@ -163,7 +171,7 @@ const spotReducer = (state = initialState, action) => {
             action.userSpots.Spots.forEach(spot => {
                 userSpotsObj[spot.id] = spot;
             });
-            return { ...state, userSpots: userSpotsObj };
+            return { ...state, userSpots: userSpotsObj, singleSpot: {...state.singleSpot} };
 
         case CREATE_SPOT:
             newState = { ...state.allSpots }
@@ -171,21 +179,26 @@ const spotReducer = (state = initialState, action) => {
             return newState;
 
         case REMOVE_SPOT:
-            newState = { ...state }
             delete newState.allSpots[action.id];
             delete newState.userSpots[action.id];
-            return { ...newState.allSpots, ...newState.userSpots, ...newState.singleSpot }
+            return {...newState, allSpots: {...newState.allSpots}, userSpots: {...newState.userSpots}}
+
+            // newState = { ...state }
+            // delete newState.allSpots[action.id];
+            // delete newState.userSpots[action.id];
+            // return { ...newState.allSpots, ...newState.userSpots, ...newState.singleSpot }
+
         case UPDATE_SPOT:
 
-            // newState.allSpots[action.spot.id] = action.spot;
-            // newState.singleSpot = action.spot;
-            // return newState;
-            newState = {...state, allSpots: {...state.allSpots,
-                    [action.spot.id]: action.spot,
-                },
-                singleSpot: action.spot,
-            };
-            return newState;
+
+            newState.allSpots[action.spot.id] = action.spot;
+            newState.userSpots[action.spot.id] = action.spot;
+            return {...newState, allSpots: {...newState.allSpots}, userSpots: {...newState.userSpots}, singleSpot: {...state.singleSpot}}
+
+            // const updateState = {...state}
+            // updateState.allSpots[action.spot.id] = action.spot;
+            // updateState.userSpots[action.spot.id] = action.spot;
+            // return updateState;
 
         default:
             return state

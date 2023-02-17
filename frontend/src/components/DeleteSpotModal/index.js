@@ -13,7 +13,7 @@ function DeleteSpotModal({spot}){
     const deleteHandler = async () => {
         await dispatch(removeSpotThunk(spot.id))
         .then(closeModal())
-        // .then(history.push('/spots/current'))
+        .then(history.push('/spots/current'))
     }
 
     return (

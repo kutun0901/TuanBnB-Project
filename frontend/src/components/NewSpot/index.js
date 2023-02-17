@@ -65,7 +65,7 @@ function CreateSpot() {
         dispatch(createSpotThunk(payload, imgData))
         // dispatch(addImgSpotThunk(imgData))
 
-        history.push('/')
+        history.push('/spots/current')
     }
 
     return (

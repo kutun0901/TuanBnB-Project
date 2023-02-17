@@ -1,21 +1,52 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
-import { updateSpotThunk } from "../../store/spots";
+import { loadAllSpots, loadSingleSpotThunk, loadUserSpotThunk, updateSpotThunk } from "../../store/spots";
 
 function UpdateSpot() {
     const dispatch = useDispatch();
     const history = useHistory();
     const { spotId } = useParams();
     // console.log(spotId);
-
+    const currentUser = useSelector(state => state.session.user);
+    // console.log(currentUser);
     const spot = useSelector(state => state.spots.userSpots[spotId])
     // console.log(spot);
+    if (currentUser === null) history.push(`/`);
+
+    // useEffect(() => {
+    //     const result = dispatch(loadUserSpotThunk(spotId))
+    //     console.log(result);
+    // }, [dispatch])
+
+    // useEffect(() => {
+
+    //     const fillFields = async () => {
+    //       const spotList = await dispatch(loadAllSpots())
+
+    //       const targetSpot = spotList[spotId]
+
+
+    //       setCountry(targetSpot.country)
+    //       setAddress(targetSpot.address)
+    //       setCity(targetSpot.city)
+    //       setState(targetSpot.state)
+    //       setLat(targetSpot.latitude)
+    //       setLng(targetSpot.longitude)
+    //       setDescription(targetSpot.description)
+    //       setName(targetSpot.name)
+    //       setPrice(targetSpot.price)
+    //     }
+
+    //     fillFields();
+
+    //   }, [dispatch])
+
 
     const [country, setCountry] = useState(spot?.country || "");
     const [address, setAddress] = useState(spot?.address || "")
     const [city, setCity] = useState(spot?.city || "");
-    const [state, setState] = useState(spot?.state | "");
+    const [state, setState] = useState(spot?.state || "");
     const [lat, setLat] = useState(spot?.lat || "");
     const [lng, setLng] = useState(spot?.lng || "");
     const [name, setName] = useState(spot?.name || "");
@@ -39,6 +70,9 @@ function UpdateSpot() {
         setValidationErrors(error)
 
     }, [country, address, city, state, lat, lng, name, description, price])
+
+
+    // if (!spot) return null
 
     const handleSubmit = async e => {
 
