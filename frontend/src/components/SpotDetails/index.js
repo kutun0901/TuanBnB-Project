@@ -16,11 +16,14 @@ function SpotDetails() {
     const spotReviews = useSelector(state => state.reviews.spotReview)
     // console.log("aaaa", spotReviews);
 
-    let hasReviewed = false;
 
 
     let reviewsArr = Object.values(spotReviews)
     // console.log(reviewsArr);
+
+
+
+    let hasReviewed = false;
 
     if (currentUser && reviewsArr) {
         reviewsArr.map(review => {
@@ -32,13 +35,16 @@ function SpotDetails() {
 
     useEffect(() => {
         dispatch(loadSingleSpotThunk(spotId))
-        dispatch(loadSpotReviewsThunk(spotId))
+        if (spotId) {
+            dispatch(loadSpotReviewsThunk(spotId))
+        }
     }, [dispatch, spotId])
 
 
+    if (Object.keys(spot).length === 0) return null;
+    if (!spot) return null;
+    if (!reviewsArr) return null;
 
-    // if (Object.keys(spot).length === 0) return null;
-    // if (!reviewsArr) return null;
 
     let spotImages = [];
     if (spot.SpotImages) {
@@ -58,6 +64,12 @@ function SpotDetails() {
             }
         }
     }
+
+    // const handleDelete = (reviewId) => {
+    //     dispatch(deleteReviewThunk(reviewId));
+    //   };
+
+
     return (
         <div>
             <h1>{spot.name}</h1>
@@ -109,6 +121,11 @@ function SpotDetails() {
                                     <div className="review-date">{review.createdAt}</div>
                                 </div>
                                 <div className="review">{review.review}</div>
+                                <div>
+                                    {currentUser.id === review.userId && (
+                                        <button>Delete Review</button>
+                                    )}
+                                </div>
                             </div>
                         ))}
                     </div>

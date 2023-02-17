@@ -19,19 +19,20 @@ export const loadSpotReviewsThunk = (spotId) => async (dispatch) => {
         const data = await response.json();
         dispatch(loadSpotReviews(data.Reviews));
         // console.log("aaaa", data.Reviews);
+        return data.Reviews;
     }
 }
 
+
 const initialState = {spotReview: {}}
 const reviewsReducer = (state = initialState, action) => {
-    let newState = {...state};
     switch (action.type) {
         case LOAD_SPOT_REVIEW:
             const resObj = {}
             action.reviews.forEach(review => {
                 resObj[review.id] = review;
             })
-            return {...newState, spotReview: resObj}
+            return {...state, spotReview: resObj}
         default:
             return state;
     }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
-import { loadAllSpots, loadSingleSpotThunk, loadUserSpotThunk, updateSpotThunk } from "../../store/spots";
+import { loadSingleSpotThunk, updateSpotThunk } from "../../store/spots";
 
 function UpdateSpot() {
     const dispatch = useDispatch();
@@ -13,34 +13,6 @@ function UpdateSpot() {
     const spot = useSelector(state => state.spots.userSpots[spotId])
     // console.log(spot);
     if (currentUser === null) history.push(`/`);
-
-    // useEffect(() => {
-    //     const result = dispatch(loadUserSpotThunk(spotId))
-    //     console.log(result);
-    // }, [dispatch])
-
-    // useEffect(() => {
-
-    //     const fillFields = async () => {
-    //       const spotList = await dispatch(loadAllSpots())
-
-    //       const targetSpot = spotList[spotId]
-
-
-    //       setCountry(targetSpot.country)
-    //       setAddress(targetSpot.address)
-    //       setCity(targetSpot.city)
-    //       setState(targetSpot.state)
-    //       setLat(targetSpot.latitude)
-    //       setLng(targetSpot.longitude)
-    //       setDescription(targetSpot.description)
-    //       setName(targetSpot.name)
-    //       setPrice(targetSpot.price)
-    //     }
-
-    //     fillFields();
-
-    //   }, [dispatch])
 
 
     const [country, setCountry] = useState(spot?.country || "");
@@ -56,6 +28,26 @@ function UpdateSpot() {
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     useEffect(() => {
+
+        const loadInput = async () => {
+            const targetSpot = await dispatch(loadSingleSpotThunk(spotId))
+
+            setCountry(targetSpot.country)
+            setAddress(targetSpot.address)
+            setCity(targetSpot.city)
+            setState(targetSpot.state)
+            setLat(targetSpot.lat)
+            setLng(targetSpot.lng)
+            setDescription(targetSpot.description)
+            setName(targetSpot.name)
+            setPrice(targetSpot.price)
+        }
+        loadInput();
+    }, [dispatch])
+
+
+    const validate = () => {
+
         const error = [];
         if (country.length === 0) error.push('Please provide a valid country')
         if (address.length === 0) error.push('Please provide a valid address')
@@ -68,34 +60,37 @@ function UpdateSpot() {
         if (price <= 0 || price === "" || !Number(price)) error.push('Please provide a valid price')
 
         setValidationErrors(error)
+    }
 
-    }, [country, address, city, state, lat, lng, name, description, price])
+
 
 
     // if (!spot) return null
 
     const handleSubmit = async e => {
-
         e.preventDefault();
         setHasSubmitted(true);
+        validate();
         if (validationErrors.length) return alert('Sorry! Check your form again')
 
         const payload = {
-            country,
-            address,
-            city,
+            country: country,
+            address: address,
+            city: city,
             state,
-            lat: Number(lat),
-            lng: Number(lng),
+            lat,
+            lng,
             name,
             description,
-            price: Number(price)
+            price
         }
-        // console.log(payload)
+        console.log("kkkk", payload)
 
-        await dispatch(updateSpotThunk(spot.id, payload))
+       await dispatch(updateSpotThunk(spotId, payload))
+
 
         history.push(`/spots/${spot.id}`)
+
 
     }
 
