@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import { deleteReviewThunk } from "../../store/reviews";
-
-function DeleteReviewModal({reviewId}){
+import { deleteReviewThunk, loadSpotReviewsThunk } from "../../store/reviews";
+import { loadSingleSpotThunk } from "../../store/spots";
+function DeleteReviewModal({reviewId, spotId}){
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const spot = useSelector(state => state.spots.singleSpot);
@@ -13,9 +13,9 @@ function DeleteReviewModal({reviewId}){
 
     const deleteHandler = async () => {
 
-        spot.numReviews--;
-
         await dispatch(deleteReviewThunk(reviewId))
+        await dispatch(loadSpotReviewsThunk(spotId))
+        await dispatch(loadSingleSpotThunk(spotId))
         .then(closeModal())
     }
 

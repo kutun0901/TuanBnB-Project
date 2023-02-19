@@ -29,14 +29,14 @@ function Spots() {
                                     <img src={spot.previewImage}
                                         alt="preview-img" />
                                 </div>
-                            </Link>
-                            <div className="spot-info">
-                                <div>{spot.city}, {spot.state}</div>
-                                <div><i className="fa-solid fa-star"></i>{spot.avgRating !== null && !isNaN(parseFloat(spot.avgRating))
-                                    ? (parseFloat(spot.avgRating).toFixed(1)) : "New"}
+                                <div className="spot-info">
+                                    <div>{spot.city}, {spot.state}</div>
+                                    <div><i className="fa-solid fa-star"></i>{spot.avgRating !== null && !isNaN(parseFloat(spot.avgRating))
+                                        ? (parseFloat(spot.avgRating).toFixed(1)) : "New"}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="spot-info">{`$${spot.price} night`}</div>
+                                <div className="spot-info">{`$${spot.price.toFixed(2)} night`}</div>
+                            </Link>
                         </div>
                     )
                 })}

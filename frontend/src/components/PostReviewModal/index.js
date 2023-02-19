@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { addReviewThunk, loadSpotReviewsThunk } from "../../store/reviews";
+import { loadSingleSpotThunk } from "../../store/spots";
 import "./postReviewModal.css";
 
 function PostReviewModal({ spotId }) {
@@ -29,6 +30,7 @@ function PostReviewModal({ spotId }) {
     const payload = { stars: star, review };
     const newReview = await dispatch(addReviewThunk(payload, spotId))
     await dispatch(loadSpotReviewsThunk(spotId));
+    await dispatch(loadSingleSpotThunk(spotId))
 
     if (newReview) {
         closeModal();

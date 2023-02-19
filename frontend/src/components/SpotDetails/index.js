@@ -16,31 +16,25 @@ function SpotDetails() {
     const spot = useSelector(state => state.spots.singleSpot)
     const spotReviews = useSelector(state => state.reviews.spotReview)
     const currentUser = useSelector(state => state.session.user)
+    let isLoggedIn = false;
 
-    let reviewsArr = Object.values(spotReviews)
+    if (currentUser) isLoggedIn = true;
 
-    // let hasReviewed = false;
 
-    // if (currentUser && reviewsArr) {
-    //     reviewsArr.map(review => {
-    //         if (currentUser.id === reviewsArr.userId) {
-    //             hasReviewed = true;
-    //         }
-    //     })
-    // }
+
+    let reviewsArr = Object.values(spotReviews).reverse();
 
     useEffect(() => {
-        dispatch(loadSingleSpotThunk(spotId))
         if (spotId) {
             dispatch(loadSpotReviewsThunk(spotId))
         }
+        dispatch(loadSingleSpotThunk(spotId))
     }, [dispatch, spotId])
 
 
     if (Object.keys(spot).length === 0) return null;
     if (!reviewsArr) return null;
-    if (!spot) return null;
-
+    // if (!spot) return null;
 
     let spotImages = [];
     if (spot.SpotImages) {
@@ -61,9 +55,9 @@ function SpotDetails() {
         }
     }
 
-    const reserveHandler = () => {
-        window.alert("Feature coming soon")
-    }
+    // const reserveHandler = () => {
+    //     window.alert("Feature coming soon")
+    // }
 
     return (
         <div>
@@ -83,27 +77,44 @@ function SpotDetails() {
                 </div>
                 <div>
                     <div>
-                        <div>${spot.price} night</div>
-                        <div>
-                            <span><i className="fa-solid fa-star"></i>{!spot.numReviews ? "New" : `${parseFloat(spot.avgStarRating).toFixed(1)} • `}
-                                {!spot.numReviews ? " " : `${spot.numReviews} reviews`}
-                            </span>
-
-                        </div>
+                        <div>${spot.price.toFixed(2)} night</div>
+                        <div className="spot-details">
+                    {reviewsArr.length === 0 ? (
+                        <span><i className="fa-solid fa-star"></i> New</span>
+                    ) : (
+                        <span>
+                            <i className="fa-solid fa-star"></i>
+                            {spot.numReviews === 1 ? (
+                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
+                            ) : (
+                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
+                            )}
+                        </span>
+                    )}
+                </div>
                     </div>
-                    <button onClick={reserveHandler}>Reserve</button>
+                    <button>Reserve</button>
                 </div>
             </div>
             <div className="reviews-container">
                 <div className="spot-details">
-                    <span><i className="fa-solid fa-star"></i>{!spot.numReviews ? "New" : `${parseFloat(spot.avgStarRating).toFixed(1)} • `}
-                        {!spot.numReviews ? " " : `${spot.numReviews} reviews`}
-                    </span>
+                    {reviewsArr.length === 0 ? (
+                        <span><i className="fa-solid fa-star"></i> New</span>
+                    ) : (
+                        <span>
+                            <i className="fa-solid fa-star"></i>
+                            {spot.numReviews === 1 ? (
+                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
+                            ) : (
+                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
+                            )}
+                        </span>
+                    )}
                 </div>
                 <div className="reviews-container">
                     <div>
-                        {currentUser && currentUser.id !== spot.ownerId && !reviewsArr.find(review => review.userId === currentUser.id) && (
-                            <OpenModalButton className="post-review-button" modalComponent={<PostReviewModal spotId={spot.id}/>} buttonText="Post Your Review" />
+                        {isLoggedIn && currentUser.id !== spot.ownerId && !reviewsArr.find(review => review.userId === currentUser.id) && (
+                            <OpenModalButton className="post-review-button" modalComponent={<PostReviewModal spotId={spot.id} />} buttonText="Post Your Review" />
                         )}
                     </div>
                     <div className="reviews-display">
@@ -115,15 +126,15 @@ function SpotDetails() {
                                 </div>
                                 <div className="review">{review.review}</div>
                                 <div>
-                                    {(currentUser.id === review.userId) && (
-                                        <OpenModalButton className="delete-review-button" modalComponent={<DeleteReviewModal reviewId={review.id} />} buttonText="Delete" />
+                                    {(isLoggedIn && currentUser.id === review.userId) && (
+                                        <OpenModalButton className="delete-review-button" modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId}/>} buttonText="Delete" />
                                     )}
                                 </div>
                             </div>
                         ))}
                     </div>
                     <div>
-                        {currentUser.id !== spot.ownerId && reviewsArr.length === 0 && (
+                        {isLoggedIn && currentUser.id !== spot.ownerId && reviewsArr.length === 0 && (
                             <p>Be the first to post a review!</p>
                         )}
                     </div>

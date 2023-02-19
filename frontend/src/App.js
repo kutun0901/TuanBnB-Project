@@ -37,6 +37,9 @@ function App() {
           <Route exact path="/spots/:spotId/edit">
             <UpdateSpot />
           </Route>
+          <Route>
+            Page Not Found
+          </Route>
         </Switch>
       )}
     </>

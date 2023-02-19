@@ -28,7 +28,7 @@ function UserSpot() {
     return (
         <>
             <div>
-                <h1>Manage Your Spots</h1>
+                <h1>Manage Spots</h1>
                 <Link to='/spots/new'>
                     <button className='create-spot-button'>Create a New Spot</button>
                 </Link>
@@ -42,22 +42,23 @@ function UserSpot() {
                                     <img src={spot.previewImage}
                                         alt="preview-img" />
                                 </div>
-                            </Link>
-                            <div className="spot-info">
-                                <div>{spot.city}, {spot.state}</div>
-                                <div><i className="fa-solid fa-star"></i> {typeof spot.avgRating === 'number' ? spot.avgRating.toFixed(1) : 0}</div>
-                            </div>
-                            <div className="Update-container">
-                                <div className="spot-info">{`$${spot.price} night`}</div>
-                                <div>
-                                    <Link to={`/spots/${spot.id}/edit`}>
-                                    <button className='update-button'>
-                                        Update
-                                    </button>
-                                    </Link>
-                                    <OpenModalButton modalComponent={<DeleteSpotModal spot={spot} />} buttonText="Delete"/>
+                                <div className="spot-info">
+                                    <div>{spot.city}, {spot.state}</div>
+                                    <div><i className="fa-solid fa-star"></i>{spot.avgRating !== null && !isNaN(parseFloat(spot.avgRating))
+                                        ? (parseFloat(spot.avgRating).toFixed(1)) : "New"}</div>
                                 </div>
-                            </div>
+                                <div className="Update-container">
+                                    <div className="spot-info">{`$${spot.price} night`}</div>
+                                    <div>
+                                        <Link to={`/spots/${spot.id}/edit`}>
+                                            <button className='update-button'>
+                                                Update
+                                            </button>
+                                        </Link>
+                                        <OpenModalButton modalComponent={<DeleteSpotModal spot={spot} />} buttonText="Delete" />
+                                    </div>
+                                </div>
+                            </Link>
                         </div>
                     )
                 })}

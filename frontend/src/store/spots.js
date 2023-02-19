@@ -121,6 +121,7 @@ export const createSpotThunk = (payload, imgData) => async (dispatch) => {
             if (response.ok) {
                 const data = await response.json();
                 dispatch(addImgSpot(data))
+                return spot;
             }
         }
     }
@@ -139,17 +140,6 @@ export const updateSpotThunk = (id, payload) => async (dispatch) => {
     }
 }
 
-// export const addImgSpotThunk = (payload, spotId) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/spots/${spotId}/images`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(payload)
-//     })
-//     if (res.ok) {
-//         const data = await res.json();
-//         dispatch(addImgSpot(data))
-//     }
-// }
 
 const initialState = { allSpots: {}, singleSpot: {}, userSpots: {} }
 
@@ -175,7 +165,6 @@ const spotReducer = (state = initialState, action) => {
             return { ...state, userSpots: userSpotsObj, singleSpot: {...state.singleSpot} };
 
         case CREATE_SPOT:
-            newState = { ...state.allSpots }
             newState.allSpots[action.spot.id] = action.spot;
             return newState;
 
@@ -184,23 +173,11 @@ const spotReducer = (state = initialState, action) => {
             delete newState.userSpots[action.id];
             return {...newState, allSpots: {...newState.allSpots}, userSpots: {...newState.userSpots}}
 
-            // newState = { ...state }
-            // delete newState.allSpots[action.id];
-            // delete newState.userSpots[action.id];
-            // return { ...newState.allSpots, ...newState.userSpots, ...newState.singleSpot }
 
         case UPDATE_SPOT:
 
         return {...state, userSpots: {...state.userSpots, ...action.spot }, singleSpot: {...state.singleSpot, ...action.spot}, allSpots: {...state.allSpots, ...action.spot} }
 
-            // newState.allSpots[action.spot.id] = action.spot;
-            // newState.userSpots[action.spot.id] = action.spot;
-            // return {...newState, allSpots: {...newState.allSpots}, userSpots: {...newState.userSpots}, singleSpot: {...state.singleSpot}}
-
-            // const updateState = {...state}
-            // updateState.allSpots[action.spot.id] = action.spot;
-            // updateState.userSpots[action.spot.id] = action.spot;
-            // return updateState;
 
         default:
             return state
