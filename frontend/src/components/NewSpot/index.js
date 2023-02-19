@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { createSpotThunk, loadSingleSpotThunk } from "../../store/spots";
+import { createSpotThunk } from "../../store/spots";
 import './newSpot.css'
 
 function CreateSpot() {
@@ -91,28 +91,24 @@ function CreateSpot() {
                 <div>
                     <input className="user-input" value={address} required placeholder='Address' onChange={e => setAddress(e.target.value)}></input>
                 </div>
-                <div>
-                    <input className="user-input" value={city} required placeholder='City' onChange={e => setCity(e.target.value)}></input>
+                <div className="city-state">
+                    <input className="user-input" id="city" value={city} required placeholder='City' onChange={e => setCity(e.target.value)}></input>
+                    <input className="user-input" id="state" value={state} required placeholder='State' onChange={e => setState(e.target.value)}></input>
                 </div>
-                <div>
-                    <input className="user-input" value={state} required placeholder='State' onChange={e => setState(e.target.value)}></input>
-                </div>
-                <div>
-                    <input className="user-input" value={lat} required placeholder='Latitude' onChange={e => setLat(e.target.value)}></input>
-                </div>
-                <div >
-                    <input className="user-input" value={lng} required placeholder='Longitude' onChange={e => setLng(e.target.value)}></input>
+                <div className="lat-lng">
+                    <input className="user-input" id="lat" value={lat} required placeholder='Latitude' onChange={e => setLat(e.target.value)}></input>
+                    <input className="user-input" id="lng" value={lng} required placeholder='Longitude' onChange={e => setLng(e.target.value)}></input>
                 </div>
                 <h3>Describe your place to guests</h3>
                 <p>Mention the best features of your place, any special amenities like fast wifi or parking, and what you love about the neighborhood</p>
                 <div>
                     <textarea className="description"  value={description} required placeholder='Description' onChange={e => setDescription(e.target.value)}></textarea>
                 </div>
-                <p>Create a title for your spot</p>
+                <h3>Create a title for your spot</h3>
                 <div>
                     <input className="user-input" value={name} required placeholder='Name of your Spot' onChange={e => setName(e.target.value)}></input>
                 </div>
-                <p>Set a base price for your spot</p>
+                <h3>Set a base price for your spot</h3>
                 <div>
                     <input className="user-input" value={price} required placeholder='Price per night (USD)' onChange={e => setPrice(e.target.value)}></input>
                 </div>

@@ -10,8 +10,12 @@
   background-color: white;
 }
 
-#modal-content {
+/* #modal-content {
   border-radius: 10px;
+} */
+
+h1 {
+  padding-bottom: 20px;
 }
 
 .login-container h1 {

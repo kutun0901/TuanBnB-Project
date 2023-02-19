@@ -64,34 +64,46 @@ function SpotDetails() {
             <h1>{spot.name}</h1>
             <div><span>{spot.city}, {spot.state}, {spot.country}</span></div>
             <div className="spotImg-container">
-                <img className='spotImage1' src={spotImages[0]}></img>
-                <img className='spotImage2' src={spotImages[1]}></img>
-                <img className='spotImage3' src={spotImages[2]}></img>
-                <img className='spotImage4' src={spotImages[3]}></img>
-                <img className='spotImage5' src={spotImages[4]}></img>
+                <div className="left-img">
+                    <img className='spotImage1' src={spotImages[0]}></img>
+                </div>
+                <div className="four-img">
+                    <div>
+                        <img className='spotImage2' src={spotImages[1]}></img>
+                    </div>
+                    <div>
+                        <img className='spotImage3' src={spotImages[2]}></img>
+                    </div>
+                    <div>
+                        <img className='spotImage4' src={spotImages[3]}></img>
+                    </div>
+                    <div>
+                        <img className='spotImage5' src={spotImages[4]}></img>
+                    </div>
+                </div>
             </div>
-            <div>
-                <div>
+            <div className="description-price-container">
+                <div className="title-description">
                     <h3>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
                     <p>{spot.description}</p>
                 </div>
-                <div>
+                <div className="price-spot">
                     <div>
-                        <div>${spot.price.toFixed(2)} night</div>
+                        <div>${Number.parseFloat(spot.price).toFixed(2)} night</div>
                         <div className="spot-details">
-                    {reviewsArr.length === 0 ? (
-                        <span><i className="fa-solid fa-star"></i> New</span>
-                    ) : (
-                        <span>
-                            <i className="fa-solid fa-star"></i>
-                            {spot.numReviews === 1 ? (
-                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
+                            {reviewsArr.length === 0 ? (
+                                <span><i className="fa-solid fa-star"></i> New</span>
                             ) : (
-                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
+                                <span>
+                                    <i className="fa-solid fa-star"></i>
+                                    {spot.numReviews === 1 ? (
+                                        ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
+                                    ) : (
+                                        ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
+                                    )}
+                                </span>
                             )}
-                        </span>
-                    )}
-                </div>
+                        </div>
                     </div>
                     <button>Reserve</button>
                 </div>
@@ -127,7 +139,7 @@ function SpotDetails() {
                                 <div className="review">{review.review}</div>
                                 <div>
                                     {(isLoggedIn && currentUser.id === review.userId) && (
-                                        <OpenModalButton className="delete-review-button" modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId}/>} buttonText="Delete" />
+                                        <OpenModalButton className="delete-review-button" modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />} buttonText="Delete" />
                                     )}
                                 </div>
                             </div>
