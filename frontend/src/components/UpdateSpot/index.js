@@ -46,31 +46,28 @@ function UpdateSpot() {
     }, [dispatch])
 
 
-    const validate = () => {
-
+    useEffect(() => {
         const error = [];
-        if (country.length === 0) error.push('Please provide a valid country')
-        if (address.length === 0) error.push('Please provide a valid address')
-        if (city.length === 0) error.push('Please provide a valid city')
-        if (state.length === 0) error.push('Please provide a valid state')
+        if (country.length === 0) error.push('Country is required')
+        if (address.length === 0) error.push('Address is required')
+        if (city.length === 0) error.push('City is required')
+        if (state.length === 0) error.push('State is required')
         if (!Number(lng)) error.push('Please provide a valid lng')
         if (!Number(lat)) error.push('Please provide a valid lat')
-        if (name.length === 0) error.push('Please provide a valid Name')
-        if (description.length === 0) error.push('Please provide a valid description')
-        if (price <= 0 || price === "" || !Number(price)) error.push('Please provide a valid price')
+        if (name.length === 0) error.push('Name is required')
+        if (description.length < 30) error.push('Description needs 30 or more characters')
+        if (price <= 0) error.push('Please provide a valid price')
+        if (!price) error.push("Price is required")
 
         setValidationErrors(error)
-    }
-
-
-
+    }, [country, address, city, state, lat, lng, price, name, description])
 
     // if (!spot) return null
 
     const handleSubmit = async e => {
         e.preventDefault();
+
         setHasSubmitted(true);
-        validate();
         if (validationErrors.length) return alert('Sorry! Check your form again')
 
         const payload = {
@@ -89,7 +86,7 @@ function UpdateSpot() {
        await dispatch(updateSpotThunk(spotId, payload))
 
 
-        history.push(`/spots/${spot.id}`)
+        history.push(`/spots/${spotId}`)
 
 
     }
@@ -116,22 +113,18 @@ function UpdateSpot() {
                 <div>
                     <input className="user-input" value={address} required placeholder='Address' onChange={e => setAddress(e.target.value)}></input>
                 </div>
-                <div>
-                    <input className="user-input" value={city} required placeholder='City' onChange={e => setCity(e.target.value)}></input>
+                <div className="city-state">
+                    <input className="user-input" id="city" value={city} required placeholder='City' onChange={e => setCity(e.target.value)}></input>
+                    <input className="user-input" id="state" value={state} required placeholder='State' onChange={e => setState(e.target.value)}></input>
                 </div>
-                <div>
-                    <input className="user-input" value={state} required placeholder='State' onChange={e => setState(e.target.value)}></input>
-                </div>
-                <div>
-                    <input className="user-input" value={lat} required placeholder='Latitude' onChange={e => setLat(e.target.value)}></input>
-                </div>
-                <div >
-                    <input className="user-input" value={lng} required placeholder='Longitude' onChange={e => setLng(e.target.value)}></input>
+                <div className="lat-lng">
+                    <input className="user-input" id="lat" value={lat} required placeholder='Latitude' onChange={e => setLat(e.target.value)}></input>
+                    <input className="user-input" id="lng" value={lng} required placeholder='Longitude' onChange={e => setLng(e.target.value)}></input>
                 </div>
                 <h3>Describe your place to guests</h3>
                 <p>Mention the best features of your place, any special amenities like fast wifi or parking, and what you love about the neighborhood</p>
                 <div>
-                    <input className="description" type="textArea" value={description} required placeholder='Description' onChange={e => setDescription(e.target.value)}></input>
+                    <textarea className="description"  value={description} required placeholder='Description' onChange={e => setDescription(e.target.value)}></textarea>
                 </div>
                 <h3>Create a title for your spot</h3>
                 <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
@@ -142,21 +135,7 @@ function UpdateSpot() {
                 <div>
                     <input className="user-input" value={price} required placeholder='Price per night (USD)' onChange={e => setPrice(e.target.value)}></input>
                 </div>
-                {/* <div>
-                    <input className="user-input" value={url1}  placeholder='Image URL' onChange={e => setUrl1(e.target.value)}></input>
-                </div>
-                <div>
-                    <input className="user-input" value={url2}  placeholder='Image URL' onChange={e => setUrl2(e.target.value)}></input>
-                </div>
-                <div>
-                    <input className="user-input" value={url3} placeholder='Image URL' onChange={e => setUrl3(e.target.value)}></input>
-                </div>
-                <div>
-                    <input className="user-input" value={url4} placeholder='Image URL' onChange={e => setUrl4(e.target.value)}></input>
-                </div>
-                <div>
-                    <input className="user-input" value={url5} placeholder='Image URL' onChange={e => setUrl5(e.target.value)}></input>
-                </div> */}
+
                 <button className="submit-button">Update</button>
             </form>
         </div>

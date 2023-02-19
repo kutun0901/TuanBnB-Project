@@ -27,15 +27,15 @@ function CreateSpot() {
 
     useEffect(() => {
         const error = [];
-        if (country.length === 0) error.push('Please provide a valid country')
-        if (address.length === 0) error.push('Please provide a valid address')
-        if (city.length === 0) error.push('Please provide a valid city')
-        if (state.length === 0) error.push('Please provide a valid state')
+        if (country.length === 0) error.push('Country is required')
+        if (address.length === 0) error.push('Address is required')
+        if (city.length === 0) error.push('City is required')
+        if (state.length === 0) error.push('State is required')
         if (!Number(lng)) error.push('Please provide a valid lng')
         if (!Number(lat)) error.push('Please provide a valid lat')
-        if (name.length === 0) error.push('Please provide a valid Name')
-        if (description.length === 0) error.push('Please provide a valid description')
-        if (price <= 0 || price === "" || !Number(price)) error.push('Please provide a valid price')
+        if (name.length === 0) error.push('Name is required')
+        if (description.length < 30) error.push('Description needs 30 or more characters')
+        if (price <= 0 || price.length === 0) error.push('Please provide a valid price')
         // if (url1.length === 0) error.push('Please provide a valid URL')
         // if (url2.length === 0) error.push('Please provide a valid URL')
         // if (url3.length === 0) error.push('Please provide a valid URL')
@@ -44,7 +44,7 @@ function CreateSpot() {
 
         setValidationErrors(error)
 
-    }, [country, address, city, state, lat, lng, name, description, price, url1, url2, url3, url4, url5])
+    }, [country, address, city, state, lat, lng, name, description, price])
 
     const handleSubmit = async e => {
 
@@ -62,10 +62,11 @@ function CreateSpot() {
         if (url5) imgData.push({url: url5, preview: true})
 
 
-        dispatch(createSpotThunk(payload, imgData))
-        // dispatch(addImgSpotThunk(imgData))
+        const newSpot = await dispatch(createSpotThunk(payload, imgData))
+        if (newSpot) {
+            history.push(`/spots/${newSpot.id}`);
+        }
 
-        history.push('/spots/current')
     }
 
     return (
@@ -90,33 +91,29 @@ function CreateSpot() {
                 <div>
                     <input className="user-input" value={address} required placeholder='Address' onChange={e => setAddress(e.target.value)}></input>
                 </div>
-                <div>
-                    <input className="user-input" value={city} required placeholder='City' onChange={e => setCity(e.target.value)}></input>
+                <div className="city-state">
+                    <input className="user-input" id="city" value={city} required placeholder='City' onChange={e => setCity(e.target.value)}></input>
+                    <input className="user-input" id="state" value={state} required placeholder='State' onChange={e => setState(e.target.value)}></input>
                 </div>
-                <div>
-                    <input className="user-input" value={state} required placeholder='State' onChange={e => setState(e.target.value)}></input>
-                </div>
-                <div>
-                    <input className="user-input" value={lat} required placeholder='Latitude' onChange={e => setLat(e.target.value)}></input>
-                </div>
-                <div >
-                    <input className="user-input" value={lng} required placeholder='Longitude' onChange={e => setLng(e.target.value)}></input>
+                <div className="lat-lng">
+                    <input className="user-input" id="lat" value={lat} required placeholder='Latitude' onChange={e => setLat(e.target.value)}></input>
+                    <input className="user-input" id="lng" value={lng} required placeholder='Longitude' onChange={e => setLng(e.target.value)}></input>
                 </div>
                 <h3>Describe your place to guests</h3>
                 <p>Mention the best features of your place, any special amenities like fast wifi or parking, and what you love about the neighborhood</p>
                 <div>
-                    <input className="description" type="textArea" value={description} required placeholder='Description' onChange={e => setDescription(e.target.value)}></input>
+                    <textarea className="description"  value={description} required placeholder='Description' onChange={e => setDescription(e.target.value)}></textarea>
                 </div>
-                <p>Create a title for your spot</p>
+                <h3>Create a title for your spot</h3>
                 <div>
                     <input className="user-input" value={name} required placeholder='Name of your Spot' onChange={e => setName(e.target.value)}></input>
                 </div>
-                <p>Set a base price for your spot</p>
+                <h3>Set a base price for your spot</h3>
                 <div>
                     <input className="user-input" value={price} required placeholder='Price per night (USD)' onChange={e => setPrice(e.target.value)}></input>
                 </div>
                 <div>
-                    <input className="user-input" value={url1}  placeholder='Image URL' onChange={e => setUrl1(e.target.value)}></input>
+                    <input className="user-input" value={url1} required placeholder='Image URL' onChange={e => setUrl1(e.target.value)}></input>
                 </div>
                 <div>
                     <input className="user-input" value={url2}  placeholder='Image URL' onChange={e => setUrl2(e.target.value)}></input>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
@@ -14,20 +14,35 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const user = useSelector(state => state.session.user);
 
-  const handleSubmit = (e) => {
+  // useEffect(() => {
+  //   const error = [];
+
+  //   if (email.length === 0) error.push("Email can't be empty")
+  //   if (username.length < 4) error.push("Username's length must be at least 4 characters")
+  //   if (firstName.length === 0) error.push("FirstName can't be empty")
+  //   if (lastName.length === 0) error.push("LastName can't be empty")
+  //   if (password.length < 6) error.push("Password must have at least 6 characters")
+
+  //   setErrors(error);
+  // },[email, username, firstName, lastName, password])
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
-        .then(closeModal)
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        });
+      const user = await dispatch(sessionActions.signup({ email, username, firstName, lastName, password }));
+      if (!user.errors) {
+        await dispatch(sessionActions.login({ credential: email, password }));
+        closeModal();
+      } else {
+        setErrors(user.errors);
+      }
+    } else {
+      setErrors(['Confirm Password field must be the same as the Password field']);
     }
-    return setErrors(['Confirm Password field must be the same as the Password field']);
   };
+
 
   return (
     <>
@@ -39,24 +54,6 @@ function SignupFormModal() {
           <ul>
             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
           </ul>
-          <div>
-            <input
-              placeholder="Email"
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <input
-              placeholder="Username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
           <div>
             <input
               placeholder="First Name"
@@ -72,6 +69,24 @@ function SignupFormModal() {
               type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <input
+              placeholder="Email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <input
+              placeholder="Username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -93,7 +108,7 @@ function SignupFormModal() {
               required
             />
           </div>
-          <button type="submit">Sign Up</button>
+          <button type="submit" disabled={email === "" || username === "" || firstName === "" || lastName === "" || password === "" || username.length < 4 || password.length < 6 || password !== confirmPassword}>Sign Up</button>
         </form>
       </div>
     </>

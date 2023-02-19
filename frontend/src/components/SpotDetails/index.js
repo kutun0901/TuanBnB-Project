@@ -4,47 +4,37 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom"
 import "./spotDetails.css"
 import { loadSpotReviewsThunk } from "../../store/reviews";
+// import SpotReview from "../SpotReview";
+import OpenModalButton from "../OpenModalButton";
+import DeleteReviewModal from "../DeleteReviewModal";
+import PostReviewModal from "../PostReviewModal";
 
 function SpotDetails() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
 
-    const currentUser = useSelector(state => state.session.user)
-    // console.log(currentUser);
     const spot = useSelector(state => state.spots.singleSpot)
-    // console.log(spot)
     const spotReviews = useSelector(state => state.reviews.spotReview)
-    // console.log("aaaa", spotReviews);
+    const currentUser = useSelector(state => state.session.user)
+    let isLoggedIn = false;
+
+    if (currentUser) isLoggedIn = true;
 
 
 
-    let reviewsArr = Object.values(spotReviews)
-    // console.log(reviewsArr);
-
-
-
-    let hasReviewed = false;
-
-    if (currentUser && reviewsArr) {
-        reviewsArr.map(review => {
-            if (currentUser.id === reviewsArr.userId) {
-                hasReviewed = true;
-            }
-        })
-    }
+    let reviewsArr = Object.values(spotReviews).reverse();
 
     useEffect(() => {
-        dispatch(loadSingleSpotThunk(spotId))
         if (spotId) {
             dispatch(loadSpotReviewsThunk(spotId))
         }
+        dispatch(loadSingleSpotThunk(spotId))
     }, [dispatch, spotId])
 
 
     if (Object.keys(spot).length === 0) return null;
-    if (!spot) return null;
     if (!reviewsArr) return null;
-
+    // if (!spot) return null;
 
     let spotImages = [];
     if (spot.SpotImages) {
@@ -65,35 +55,54 @@ function SpotDetails() {
         }
     }
 
-    // const handleDelete = (reviewId) => {
-    //     dispatch(deleteReviewThunk(reviewId));
-    //   };
-
+    // const reserveHandler = () => {
+    //     window.alert("Feature coming soon")
+    // }
 
     return (
         <div>
             <h1>{spot.name}</h1>
             <div><span>{spot.city}, {spot.state}, {spot.country}</span></div>
             <div className="spotImg-container">
-                <img className='spotImage1' src={spotImages[0]}></img>
-                <img className='spotImage2' src={spotImages[1]}></img>
-                <img className='spotImage3' src={spotImages[2]}></img>
-                <img className='spotImage4' src={spotImages[3]}></img>
-                <img className='spotImage5' src={spotImages[4]}></img>
+                <div className="left-img">
+                    <img className='spotImage1' src={spotImages[0]}></img>
+                </div>
+                <div className="four-img">
+                    <div>
+                        <img className='spotImage2' src={spotImages[1]}></img>
+                    </div>
+                    <div>
+                        <img className='spotImage3' src={spotImages[2]}></img>
+                    </div>
+                    <div>
+                        <img className='spotImage4' src={spotImages[3]}></img>
+                    </div>
+                    <div>
+                        <img className='spotImage5' src={spotImages[4]}></img>
+                    </div>
+                </div>
             </div>
-            <div>
-                <div>
+            <div className="description-price-container">
+                <div className="title-description">
                     <h3>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
                     <p>{spot.description}</p>
                 </div>
-                <div>
+                <div className="price-spot">
                     <div>
-                        <div>${spot.price} night</div>
-                        <div>
-                            <span><i class="fa-solid fa-star"></i>{!spot.numReviews ? "New" : `${parseFloat(spot.avgStarRating).toFixed(1)} • `}
-                                {!spot.numReviews ? " " : `${spot.numReviews} reviews`}
-                            </span>
-
+                        <div>${Number.parseFloat(spot.price).toFixed(2)} night</div>
+                        <div className="spot-details">
+                            {reviewsArr.length === 0 ? (
+                                <span><i className="fa-solid fa-star"></i> New</span>
+                            ) : (
+                                <span>
+                                    <i className="fa-solid fa-star"></i>
+                                    {spot.numReviews === 1 ? (
+                                        ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
+                                    ) : (
+                                        ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
+                                    )}
+                                </span>
+                            )}
                         </div>
                     </div>
                     <button>Reserve</button>
@@ -101,43 +110,49 @@ function SpotDetails() {
             </div>
             <div className="reviews-container">
                 <div className="spot-details">
-                    <span><i class="fa-solid fa-star"></i>{!spot.numReviews ? "New" : `${parseFloat(spot.avgStarRating).toFixed(1)} • `}
-                        {!spot.numReviews ? " " : `${spot.numReviews} reviews`}
-                    </span>
+                    {reviewsArr.length === 0 ? (
+                        <span><i className="fa-solid fa-star"></i> New</span>
+                    ) : (
+                        <span>
+                            <i className="fa-solid fa-star"></i>
+                            {spot.numReviews === 1 ? (
+                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
+                            ) : (
+                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
+                            )}
+                        </span>
+                    )}
                 </div>
                 <div className="reviews-container">
                     <div>
-                        {(hasReviewed === false && currentUser.id !== spot.ownerId) ? (
-                            <button className="post-review-button">
-                                Post your review
-                            </button>
-                        ) : null}
+                        {isLoggedIn && currentUser.id !== spot.ownerId && !reviewsArr.find(review => review.userId === currentUser.id) && (
+                            <OpenModalButton className="post-review-button" modalComponent={<PostReviewModal spotId={spot.id} />} buttonText="Post Your Review" />
+                        )}
                     </div>
                     <div className="reviews-display">
                         {reviewsArr.map((review) => (
-                            <div>
+                            <div key={review.id}>
                                 <div>
                                     <div className="review-owner">{review.User.firstName}</div>
-                                    <div className="review-date">{review.createdAt}</div>
+                                    <div className="review-date">{review.createdAt.slice(0, 10)}</div>
                                 </div>
                                 <div className="review">{review.review}</div>
                                 <div>
-                                    {currentUser.id === review.userId && (
-                                        <button>Delete Review</button>
+                                    {(isLoggedIn && currentUser.id === review.userId) && (
+                                        <OpenModalButton className="delete-review-button" modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />} buttonText="Delete" />
                                     )}
                                 </div>
                             </div>
                         ))}
                     </div>
                     <div>
-                        {currentUser.id !== spot.ownerId && reviewsArr.length === 0 ? (
+                        {isLoggedIn && currentUser.id !== spot.ownerId && reviewsArr.length === 0 && (
                             <p>Be the first to post a review!</p>
-                        ) : null}
+                        )}
                     </div>
 
                 </div>
             </div>
-
         </div>
     )
 }
