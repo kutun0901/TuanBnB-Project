@@ -4,6 +4,8 @@ import { loadUserSpotThunk, removeSpotThunk } from '../../store/spots'
 import { Link, useHistory } from "react-router-dom";
 import DeleteSpotModal from "../DeleteSpotModal";
 import OpenModalButton from "../OpenModalButton";
+import './userSpot.css'
+
 
 function UserSpot() {
     const dispatch = useDispatch();
@@ -47,8 +49,9 @@ function UserSpot() {
                                     <div><i className="fa-solid fa-star"></i>{spot.avgRating !== null && !isNaN(parseFloat(spot.avgRating))
                                         ? (parseFloat(spot.avgRating).toFixed(1)) : "New"}</div>
                                 </div>
-                                <div className="Update-container">
                                     <div className="spot-info">{`$${spot.price} night`}</div>
+                            </Link>
+                                <div className="Update-container">
                                     <div>
                                         <Link to={`/spots/${spot.id}/edit`}>
                                             <button className='update-button'>
@@ -58,7 +61,6 @@ function UserSpot() {
                                         <OpenModalButton modalComponent={<DeleteSpotModal spot={spot} />} buttonText="Delete" />
                                     </div>
                                 </div>
-                            </Link>
                         </div>
                     )
                 })}

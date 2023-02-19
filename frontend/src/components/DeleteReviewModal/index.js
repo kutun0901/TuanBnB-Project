@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteReviewThunk, loadSpotReviewsThunk } from "../../store/reviews";
 import { loadSingleSpotThunk } from "../../store/spots";
+import "./deleteReview.css"
+
 function DeleteReviewModal({reviewId, spotId}){
     const dispatch = useDispatch();
     const { closeModal } = useModal();

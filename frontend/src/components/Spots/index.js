@@ -20,7 +20,7 @@ function Spots() {
     const allSpotArr = Object.values(spots);
 
     return (
-        <>
+        <div className="spots-wrapper">
             <div className="spots-container">
                 {allSpotArr.map(spot => {
                     return (
@@ -42,7 +42,7 @@ function Spots() {
                     )
                 })}
             </div>
-        </>
+        </div>
     )
 }
 

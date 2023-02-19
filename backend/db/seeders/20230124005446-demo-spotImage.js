@@ -39,6 +39,21 @@ module.exports = {
         preview: true,
         spotId: 4,
       },
+      {
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Niigata_NCM_Peasant_Rice_Farmers_House.jpg/800px-Niigata_NCM_Peasant_Rice_Farmers_House.jpg',
+        preview: true,
+        spotId: 5,
+      },
+      {
+        url: 'https://cdn.decoist.com/wp-content/uploads/2021/06/Black-house-in-the-middle-of-bare-land-73100-scaled.jpg',
+        preview: true,
+        spotId: 6
+      },
+      {
+        url: 'https://vwartclub.com/media/projects/4072/1.jpg',
+        preview: true,
+        spotId: 6
+      }
 
     ])
   },
