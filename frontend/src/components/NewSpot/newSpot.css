@@ -17,7 +17,7 @@
     padding-top: 20px;
   }
 
-  h3 {
+  .form-container h3 {
     border-top: 1px solid black;
     padding: 10px;
   }
@@ -53,4 +53,25 @@
     color: white;
     border: 3px solid black;
     box-shadow: 2px 2px 2px black;
+  }
+
+  .city-state, .lat-lng {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .city-state #city {
+    width: 60%;
+  }
+
+  .city-state #state {
+    width: 38%;
+  }
+
+  .lat-lng #lat {
+    width: 38%;
+  }
+
+  .lat-lng #lng {
+    width: 60%;
   }

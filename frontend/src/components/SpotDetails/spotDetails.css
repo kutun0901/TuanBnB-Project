@@ -1,45 +1,158 @@
-.spotImg-container {
-  width: 100%;
-  height: 50%;
+.main-wrapper {
   display: flex;
+  flex-wrap: wrap;
   object-fit: cover;
 }
 
+.spotImg-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .left-img {
-object-fit: cover;
-width: 50%;
-height: 512px;
-display: flex;
+  flex: 1;
+  margin-right: 10px;
+  object-fit: cover;
+  height: 412px;
+  display: flex;
+  width: 50%;
 }
 
 .four-img {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-overflow: hidden;
-width: 50%;
-height: 512px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  height: 412px;
+  object-fit: fill;
+  width: 50%;
 }
 
-.four-img img {
-  width: 100%;
+
+.four-img div {
+  width: 50%;
+  height: 205px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
+
+.preview-container{
+  gap: 10px;
+}
+
+.four-img div img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 
 .description-price-container {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.title-description{
+.title-description {
   width: 60%;
 }
 
-.price-spot{
+.price-spot {
   width: 30%;
+  margin-left: 10px;
+  border: 3px solid black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* height: 70%; */
+
+}
+
+
+.spot-details-container h1 {
+  text-align: left;
   margin-left: 10px;
 }
 
+.spot-locations {
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+.price-spot button {
+  width: 90%;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #FF5A5F;
+  padding: 10px;
+  color: white;
+  border: 3px solid black;
+  box-shadow: 1px 1px 1px black;
+  margin-bottom: 5px;
+}
+
+.spot-rating {
+  display: flex;
+
+}
+
+.price {
+  display: block;
+  flex-wrap: nowrap;
+  font-weight: bold;
+  /* padding-right: 30%; */
+}
+
+
 img {
   width: 100%;
-  /* height: auto; */
+  height: auto;
+}
+
+
+.main-reviews-container {
+  border-top: 2px solid black;
+  margin-top: 25px;
+}
+
+
+.spot-details {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+.reviews-display {
+  margin-top: 15px;
+}
+
+.review-owner {
+  font-weight: bold;
+}
+
+.review-details {
+  margin-top: 20px;
+}
+
+.review {
+  margin-bottom: 10px;
+}
+
+.review-date {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.description-price-container h3{
+  font-size: 28px;
 }

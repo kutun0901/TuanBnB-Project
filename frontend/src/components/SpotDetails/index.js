@@ -60,97 +60,96 @@ function SpotDetails() {
     // }
 
     return (
-        <div>
-            <h1>{spot.name}</h1>
-            <div><span>{spot.city}, {spot.state}, {spot.country}</span></div>
-            <div className="spotImg-container">
-                <div className="left-img">
-                    <img className='spotImage1' src={spotImages[0]}></img>
-                </div>
-                <div className="four-img">
-                    <div>
-                        <img className='spotImage2' src={spotImages[1]}></img>
-                    </div>
-                    <div>
-                        <img className='spotImage3' src={spotImages[2]}></img>
-                    </div>
-                    <div>
-                        <img className='spotImage4' src={spotImages[3]}></img>
-                    </div>
-                    <div>
-                        <img className='spotImage5' src={spotImages[4]}></img>
-                    </div>
-                </div>
-            </div>
-            <div className="description-price-container">
-                <div className="title-description">
-                    <h3>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
-                    <p>{spot.description}</p>
-                </div>
-                <div className="price-spot">
-                    <div>
-                        <div>${Number.parseFloat(spot.price).toFixed(2)} night</div>
-                        <div className="spot-details">
-                            {reviewsArr.length === 0 ? (
-                                <span><i className="fa-solid fa-star"></i> New</span>
-                            ) : (
-                                <span>
-                                    <i className="fa-solid fa-star"></i>
-                                    {spot.numReviews === 1 ? (
-                                        ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
-                                    ) : (
-                                        ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
-                                    )}
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                    <button>Reserve</button>
-                </div>
-            </div>
-            <div className="reviews-container">
-                <div className="spot-details">
-                    {reviewsArr.length === 0 ? (
-                        <span><i className="fa-solid fa-star"></i> New</span>
-                    ) : (
-                        <span>
-                            <i className="fa-solid fa-star"></i>
-                            {spot.numReviews === 1 ? (
-                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
-                            ) : (
-                                ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
-                            )}
-                        </span>
-                    )}
-                </div>
-                <div className="reviews-container">
-                    <div>
-                        {isLoggedIn && currentUser.id !== spot.ownerId && !reviewsArr.find(review => review.userId === currentUser.id) && (
-                            <OpenModalButton className="post-review-button" modalComponent={<PostReviewModal spotId={spot.id} />} buttonText="Post Your Review" />
-                        )}
-                    </div>
-                    <div className="reviews-display">
-                        {reviewsArr.map((review) => (
-                            <div key={review.id}>
-                                <div>
-                                    <div className="review-owner">{review.User.firstName}</div>
-                                    <div className="review-date">{review.createdAt.slice(0, 10)}</div>
-                                </div>
-                                <div className="review">{review.review}</div>
-                                <div>
-                                    {(isLoggedIn && currentUser.id === review.userId) && (
-                                        <OpenModalButton className="delete-review-button" modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />} buttonText="Delete" />
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                    <div>
-                        {isLoggedIn && currentUser.id !== spot.ownerId && reviewsArr.length === 0 && (
-                            <p>Be the first to post a review!</p>
-                        )}
+        <div className="main-wrapper">
+            <div className="spot-details-container">
+                <h1>{spot.name}</h1>
+                <div className="spot-locations"><span>{spot.city}, {spot.state}, {spot.country}</span></div>
+                <div className="spotImg-container">
+                    <div className="left-img">
+                        <img className='spotImage1' src={spotImages[0]}></img>
                     </div>
 
+                    <div className="four-img">
+                        <div className="preview-container">
+                            <img className='spotImage2' src={spotImages[1]}></img>
+                            <img className='spotImage3' src={spotImages[2]}></img>
+                        </div>
+                        <div className="preview-container">
+                            <img className='spotImage4' src={spotImages[3]}></img>
+                            <img className='spotImage5' src={spotImages[4]}></img>
+                        </div>
+                    </div>
+                </div>
+                <div className="description-price-container">
+                    <div className="title-description">
+                        <h3>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
+                        <p>{spot.description}</p>
+                    </div>
+                    <div className="price-spot">
+                        <div className="spot-rating">
+                            <div className="price">${Number.parseFloat(spot.price).toFixed(2)} night</div>
+                            <div className="stars">
+                                {reviewsArr.length === 0 ? (
+                                    <span><i className="fa-solid fa-star"></i> New</span>
+                                ) : (
+                                    <span>
+                                        <i className="fa-solid fa-star"></i>
+                                        {spot.numReviews === 1 ? (
+                                            ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
+                                        ) : (
+                                            ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
+                                        )}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                        <button>Reserve</button>
+                    </div>
+                </div>
+                <div className="main-reviews-container">
+                    <div className="spot-details">
+                        {reviewsArr.length === 0 ? (
+                            <span><i className="fa-solid fa-star"></i> New</span>
+                        ) : (
+                            <span>
+                                <i className="fa-solid fa-star"></i>
+                                {spot.numReviews === 1 ? (
+                                    ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
+                                ) : (
+                                    ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
+                                )}
+                            </span>
+                        )}
+                    </div>
+                    <div className="reviews-container">
+                        <div className="post-button">
+                            {isLoggedIn && currentUser.id !== spot.ownerId && !reviewsArr.find(review => review.userId === currentUser.id) && (
+                                <OpenModalButton className="post-review-button" modalComponent={<PostReviewModal spotId={spot.id} />} buttonText="Post Your Review" />
+                            )}
+                        </div>
+                        <div className="reviews-display">
+                            {reviewsArr.map((review) => (
+                                <div className="review-details" key={review.id}>
+                                    <div>
+                                        <div className="review-owner">{review.User.firstName}</div>
+                                        <div className="review-date">{review.createdAt.slice(0, 10)}</div>
+                                    </div>
+                                    <div className="review">{review.review}</div>
+                                    <div>
+                                        {(isLoggedIn && currentUser.id === review.userId) && (
+                                            <OpenModalButton className="delete-review-button" modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />} buttonText="Delete" />
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div>
+                            {isLoggedIn && currentUser.id !== spot.ownerId && reviewsArr.length === 0 && (
+                                <p>Be the first to post a review!</p>
+                            )}
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,23 @@
+.delete-review-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    width: 400px;
+  }
+
+
+  .delete-review-container p {
+    text-align: center;
+    /* font-weight: bold; */
+  }
+
+  .yes:hover {
+    background-color: #e0494c;
+  }
+
+  .no:hover {
+    background-color: #0ca7a7;
+  }
