@@ -1,13 +1,14 @@
   .spots-container {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    margin-left: 20%;
-    margin-right: 20%;
+    justify-content: flex-start;
+    gap: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
 
   .single-spot {
-    max-width: 350px;
+    width: 350px;
     margin: 10px;
     display: flex;
     flex-direction: column;
@@ -21,7 +22,7 @@
     padding: 5px 10px;
   }
 
-  .spot-info > div {
+  .spot-info>div {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

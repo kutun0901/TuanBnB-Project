@@ -43,3 +43,9 @@
   border: 3px solid black;
   box-shadow: 2px 2px 2px black;
 }
+
+
+.errors li {
+  color: red;
+  text-align: center;
+}
