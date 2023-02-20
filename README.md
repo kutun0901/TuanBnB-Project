@@ -8,6 +8,7 @@ The project uses a range of technologies for both the frontend and backend compo
 + User management
 + Spot management
 + Review management. 
+
 Each of these features provides full CRUD functionality, allowing users to create, read, update, and delete data as needed.
 
 ## The landing page
