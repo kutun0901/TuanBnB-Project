@@ -14,35 +14,25 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const user = useSelector(state => state.session.user);
 
-  // useEffect(() => {
-  //   const error = [];
 
-  //   if (email.length === 0) error.push("Email can't be empty")
-  //   if (username.length < 4) error.push("Username's length must be at least 4 characters")
-  //   if (firstName.length === 0) error.push("FirstName can't be empty")
-  //   if (lastName.length === 0) error.push("LastName can't be empty")
-  //   if (password.length < 6) error.push("Password must have at least 6 characters")
-
-  //   setErrors(error);
-  // },[email, username, firstName, lastName, password])
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      const user = await dispatch(sessionActions.signup({ email, username, firstName, lastName, password }));
-      if (!user.errors) {
-        await dispatch(sessionActions.login({ credential: email, password }));
-        closeModal();
-      } else {
-        setErrors(user.errors);
-      }
+      dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+        .then(() => {
+          dispatch(sessionActions.restoreUser());
+          closeModal();
+        })
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
     } else {
-      setErrors(['Confirm Password field must be the same as the Password field']);
+      return setErrors(['Confirm Password field must be the same as the Password field']);
     }
   };
-
 
   return (
     <>
@@ -51,7 +41,7 @@ function SignupFormModal() {
           <h1>Sign Up</h1>
         </div>
         <form onSubmit={handleSubmit}>
-          <ul>
+          <ul className="errors">
             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
           </ul>
           <div>

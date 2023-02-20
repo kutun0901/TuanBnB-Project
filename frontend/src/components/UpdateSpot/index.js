@@ -56,7 +56,7 @@ function UpdateSpot() {
         if (!Number(lat)) error.push('Please provide a valid lat')
         if (name.length === 0) error.push('Name is required')
         if (description.length < 30) error.push('Description needs 30 or more characters')
-        if (price <= 0) error.push('Please provide a valid price')
+        if (price.length === 0 || isNaN(price)) error.push('Please provide a valid price')
         if (!price) error.push("Price is required")
 
         setValidationErrors(error)
@@ -99,7 +99,7 @@ function UpdateSpot() {
             {hasSubmitted && validationErrors.length > 0 && (
                 <div>
                     The following errors were found:
-                    <ul>
+                    <ul className="errors">
                         {validationErrors.map(error => (
                             <li key={error}>{error}</li>
                         ))}
@@ -131,12 +131,13 @@ function UpdateSpot() {
                 <div>
                     <input className="user-input" value={name} required placeholder='Name of your Spot' onChange={e => setName(e.target.value)}></input>
                 </div>
+                <h3>Set a base price for your spot</h3>
                 <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                 <div>
                     <input className="user-input" value={price} required placeholder='Price per night (USD)' onChange={e => setPrice(e.target.value)}></input>
                 </div>
 
-                <button className="submit-button">Update</button>
+                <button className="submit-button">Update your Spot</button>
             </form>
         </div>
     )

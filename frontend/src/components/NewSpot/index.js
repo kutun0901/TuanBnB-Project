@@ -35,7 +35,8 @@ function CreateSpot() {
         if (!Number(lat)) error.push('Please provide a valid lat')
         if (name.length === 0) error.push('Name is required')
         if (description.length < 30) error.push('Description needs 30 or more characters')
-        if (price <= 0 || price.length === 0) error.push('Please provide a valid price')
+        if (price.length === 0 || isNaN(price)) error.push('Please provide a valid price')
+        if (!price) error.push("Price is required")
         // if (url1.length === 0) error.push('Please provide a valid URL')
         // if (url2.length === 0) error.push('Please provide a valid URL')
         // if (url3.length === 0) error.push('Please provide a valid URL')
@@ -63,10 +64,11 @@ function CreateSpot() {
 
 
         const newSpot = await dispatch(createSpotThunk(payload, imgData))
+
+
         if (newSpot) {
             history.push(`/spots/${newSpot.id}`);
         }
-
     }
 
     return (
@@ -77,7 +79,7 @@ function CreateSpot() {
             {hasSubmitted && validationErrors.length > 0 && (
                 <div>
                     The following errors were found:
-                    <ul>
+                    <ul className="errors">
                         {validationErrors.map(error => (
                             <li key={error}>{error}</li>
                         ))}
@@ -105,15 +107,19 @@ function CreateSpot() {
                     <textarea className="description"  value={description} required placeholder='Description' onChange={e => setDescription(e.target.value)}></textarea>
                 </div>
                 <h3>Create a title for your spot</h3>
+                <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
                 <div>
-                    <input className="user-input" value={name} required placeholder='Name of your Spot' onChange={e => setName(e.target.value)}></input>
+                    <input className="user-input" value={name} required placeholder='Name of your spot' onChange={e => setName(e.target.value)}></input>
                 </div>
                 <h3>Set a base price for your spot</h3>
+                <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                 <div>
                     <input className="user-input" value={price} required placeholder='Price per night (USD)' onChange={e => setPrice(e.target.value)}></input>
                 </div>
+                <h3>Liven up your spot with photos</h3>
+                <p>Submit a link to at least one photo to publish your spot.</p>
                 <div>
-                    <input className="user-input" value={url1} required placeholder='Image URL' onChange={e => setUrl1(e.target.value)}></input>
+                    <input className="user-input" value={url1} required placeholder='Preview Image URL' onChange={e => setUrl1(e.target.value)}></input>
                 </div>
                 <div>
                     <input className="user-input" value={url2}  placeholder='Image URL' onChange={e => setUrl2(e.target.value)}></input>
@@ -127,7 +133,7 @@ function CreateSpot() {
                 <div>
                     <input className="user-input" value={url5} placeholder='Image URL' onChange={e => setUrl5(e.target.value)}></input>
                 </div>
-                <button className="submit-button">Submit</button>
+                <button className="submit-button">Create Spot</button>
             </form>
         </div>
     )
