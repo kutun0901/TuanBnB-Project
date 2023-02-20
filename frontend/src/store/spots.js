@@ -121,9 +121,9 @@ export const createSpotThunk = (payload, imgData) => async (dispatch) => {
             if (response.ok) {
                 const data = await response.json();
                 dispatch(addImgSpot(data))
-                return spot;
             }
         }
+        return spot;
     }
 }
 

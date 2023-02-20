@@ -55,7 +55,7 @@ function PostReviewModal({ spotId }) {
           required
           type="text"
           className="review-input"
-          placeholder="leave your review here..."
+          placeholder="Leave your review here..."
           value={review}
           onChange={(e) => setReview(e.target.value)}
         ></textarea>
