@@ -19,7 +19,7 @@ const validateReview = [
     handleValidationErrors
   ]
 
-//Get all Reviews by a Spot's id
+//Get all Reviews by a current userId
 router.get('/current', requireAuth, async (req, res, next) => {
     const { user } = req;
     const reviews = await Review.findAll({

@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 
 const LOAD_SPOT_REVIEW = "reviews/LOAD_SPOT_REVIEW";
+const LOAD_USER_REVIEWS = 'reviews/LOAD_USER_REVIEWS'
 const DELETE_REVIEW = "reviews/DELETE_REVIEW"
 const ADD_REVIEW = "reviews/ADD_REVIEW"
 
@@ -9,6 +10,13 @@ const ADD_REVIEW = "reviews/ADD_REVIEW"
 const loadSpotReviews = (reviews) => {
     return {
         type: LOAD_SPOT_REVIEW,
+        reviews
+    }
+}
+
+const loadUserReviews = (reviews) => {
+    return {
+        type: LOAD_USER_REVIEWS,
         reviews
     }
 }
@@ -35,6 +43,16 @@ export const loadSpotReviewsThunk = (spotId) => async (dispatch) => {
         const data = await response.json();
         dispatch(loadSpotReviews(data.Reviews));
         // console.log("aaaa", data.Reviews);
+        return data;
+    }
+}
+
+export const loadUserReviewsThunk = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/current`);
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadUserReviews(data.Reviews))
         return data;
     }
 }
@@ -66,7 +84,7 @@ export const addReviewThunk = (review, spotId) => async (dispatch) => {
     }
 }
 
-const initialState = { spotReview: {} }
+const initialState = { spotReview: {} , userReviews: {}}
 const reviewsReducer = (state = initialState, action) => {
     let newState = {}
     switch (action.type) {
@@ -76,6 +94,13 @@ const reviewsReducer = (state = initialState, action) => {
                 resObj[review.id] = review;
             })
             return { ...state, spotReview: resObj }
+
+        case LOAD_USER_REVIEWS:
+            const res = {};
+            action.reviews.forEach(review => {
+                res[review.id] = review;
+            })
+            return { ...state, userReviews: res }
         case DELETE_REVIEW:
             newState = { ...state }
             delete newState.spotReview[action.id]
