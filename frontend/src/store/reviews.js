@@ -5,6 +5,7 @@ const LOAD_SPOT_REVIEW = "reviews/LOAD_SPOT_REVIEW";
 const LOAD_USER_REVIEWS = 'reviews/LOAD_USER_REVIEWS'
 const DELETE_REVIEW = "reviews/DELETE_REVIEW"
 const ADD_REVIEW = "reviews/ADD_REVIEW"
+const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW'
 
 
 const loadSpotReviews = (reviews) => {
@@ -36,6 +37,13 @@ const addReview = (review) => {
     }
 }
 
+const updateReview = (review) => {
+    return {
+        type: UPDATE_REVIEW,
+        review
+    }
+}
+
 export const loadSpotReviewsThunk = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
 
@@ -53,6 +61,20 @@ export const loadUserReviewsThunk = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(loadUserReviews(data.Reviews))
+        return data;
+    }
+}
+
+export const updateReviewThunk = (review) => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/${review.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(review)
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateReview(data))
         return data;
     }
 }
@@ -84,7 +106,7 @@ export const addReviewThunk = (review, spotId) => async (dispatch) => {
     }
 }
 
-const initialState = { spotReview: {} , userReviews: {}}
+const initialState = { spotReview: {}, userReviews: {} }
 const reviewsReducer = (state = initialState, action) => {
     let newState = {}
     switch (action.type) {
@@ -101,13 +123,20 @@ const reviewsReducer = (state = initialState, action) => {
                 res[review.id] = review;
             })
             return { ...state, userReviews: res }
+
+        case UPDATE_REVIEW:
+            newState = { ...state };
+            newState.spotReview[action.review.id] = action.review;
+            newState.userReviews[action.review.id] = action.review;
+            return { ...newState };
+
         case DELETE_REVIEW:
             newState = { ...state }
             delete newState.spotReview[action.id]
-            return {...state, ...newState.spotReview}
+            return { ...state, ...newState.spotReview }
 
         case ADD_REVIEW:
-            newState = { ...state};
+            newState = { ...state };
             newState.spotReview[action.review.id] = action.review;
             return newState;
 
