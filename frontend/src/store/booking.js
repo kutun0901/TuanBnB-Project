@@ -78,8 +78,8 @@ export const createBookingThunk = (booking, spotId) => async (dispatch) => {
     }
 }
 
-export const updateBookingThunk = (booking) => async (dispatch) => {
-    const response = await csrfFetch(`/api/bookings/${booking.id}`, {
+export const updateBookingThunk = (booking, id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookings/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(booking)
@@ -91,3 +91,67 @@ export const updateBookingThunk = (booking) => async (dispatch) => {
         return data;
     }
 }
+
+export const deleteBookingThunk = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/bookings/${id}`, {
+        method: "DELETE"
+    })
+
+    if (response.ok) {
+        dispatch(deleteBooking(reviewId));
+    }
+}
+
+
+const initialState = { spotBookings: {}, userBookings: {} };
+
+const bookingsReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case GET_SPOT_BOOKINGS:
+            const spotBookings = {};
+            action.bookings.forEach((booking) => {
+                spotBookings[booking.id] = booking;
+            });
+            return { ...state, spotBookings };
+        case GET_USER_BOOKINGS:
+            const userBookings = {};
+            action.bookings.forEach((booking) => {
+                userBookings[booking.id] = booking;
+            });
+            return { ...state, userBookings };
+        case CREATE_BOOKING:
+            return {
+                ...state,
+                spotBookings: {
+                    ...state.spotBookings,
+                    [action.booking.id]: action.booking,
+                },
+                userBookings: {
+                    ...state.userBookings,
+                    [action.booking.id]: action.booking,
+                },
+            };
+        case DELETE_BOOKING:
+            const newSpotBookings = { ...state.spotBookings };
+            const newUserBookings = { ...state.userBookings };
+            delete newSpotBookings[action.id];
+            delete newUserBookings[action.id];
+            return { ...state, spotBookings: newSpotBookings, userBookings: newUserBookings };
+        case UPDATE_BOOKING:
+            return {
+                ...state,
+                spotBookings: {
+                    ...state.spotBookings,
+                    [action.booking.id]: action.booking,
+                },
+                userBookings: {
+                    ...state.userBookings,
+                    [action.booking.id]: action.booking,
+                },
+            };
+        default:
+            return state;
+    }
+};
+
+export default bookingsReducer;
