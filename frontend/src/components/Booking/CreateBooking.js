@@ -67,13 +67,9 @@ function CreateBooking({ spotId }) {
         }
         const conflicts = [];
 
-        console.log("before");
-
         for (let existingBooking of spotBookings) {
             const existingStart = new Date(existingBooking.startDate);
-            console.log(existingStart);
             const existingEnd = new Date(existingBooking.endDate);
-            console.log(existingEnd);
 
             if (booking.startDate >= existingStart && booking.startDate <= existingEnd) {
                 conflicts.push(existingBooking);
