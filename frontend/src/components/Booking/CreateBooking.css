@@ -1,0 +1,85 @@
+.booking-details {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .booking-price {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .booking-rating {
+    color: #008489;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .booking-rating i {
+    margin-right: 4px;
+  }
+
+  .booking-rating span {
+    display: flex;
+    align-items: center;
+  }
+
+  .booking-rating span:first-child {
+    margin-right: 8px;
+  }
+
+  .booking-rating span:last-child {
+    font-size: 12px;
+    color: #484848;
+  }
+
+  .booking-details label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .booking-details button {
+    background-color: #f7b500;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 16px;
+    padding: 12px 24px;
+    width: 100%;
+  }
+
+  .fee-details-container {
+    margin-top: 24px;
+  }
+
+  .fee-details-container p {
+    font-size: 12px;
+    color: #484848;
+    margin-bottom: 8px;
+  }
+
+  .fee-details-container div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .fee-details-container div:first-child {
+    font-weight: 600;
+  }
+
+  .fee-details-container div:last-child {
+    color: #008489;
+    font-weight: 600;
+  }
