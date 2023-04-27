@@ -8,6 +8,7 @@ import { loadSpotReviewsThunk } from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton";
 import DeleteReviewModal from "../DeleteReviewModal";
 import PostReviewModal from "../PostReviewModal";
+import CreateBooking from "../Booking/CreateBooking";
 
 function SpotDetails() {
     const dispatch = useDispatch();
@@ -85,26 +86,7 @@ function SpotDetails() {
                         <h3>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h3>
                         <p>{spot.description}</p>
                     </div>
-                    <div className="price-spot">
-                        <div className="spot-rating">
-                            <div className="price">${Number.parseFloat(spot.price).toFixed(2)} night</div>
-                            <div className="stars">
-                                {reviewsArr.length === 0 ? (
-                                    <span><i className="fa-solid fa-star"></i> New</span>
-                                ) : (
-                                    <span>
-                                        <i className="fa-solid fa-star"></i>
-                                        {spot.numReviews === 1 ? (
-                                            ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} review`
-                                        ) : (
-                                            ` ${parseFloat(spot.avgStarRating).toFixed(1)} • ${spot.numReviews} reviews`
-                                        )}
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                        <button>Reserve</button>
-                    </div>
+                    <CreateBooking spotId={spotId} />
                 </div>
                 <div className="main-reviews-container">
                     <div className="spot-details">

@@ -8,6 +8,7 @@ import SpotDetails from "./components/SpotDetails";
 import CreateSpot from "./components/NewSpot";
 import UserSpot from './components/UserSpot'
 import UpdateSpot from "./components/UpdateSpot";
+import UserBookings from "./components/Booking/UserBooking";
 
 
 function App() {
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/spots/:spotId/edit">
             <UpdateSpot />
+          </Route>
+          <Route path="/current/bookings">
+            <UserBookings />
           </Route>
           <Route>
             Page Not Found
