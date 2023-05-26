@@ -83,3 +83,34 @@
     color: #008489;
     font-weight: 600;
   }
+
+  .date-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgb(188, 188, 188);
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .date-container::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 80%;
+    width: 1px;
+    background-color: rgb(188, 188, 188);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .date-picker {
+    margin-bottom: 5px;
+    border: none;
+  }
