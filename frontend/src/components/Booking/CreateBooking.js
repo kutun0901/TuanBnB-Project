@@ -102,7 +102,7 @@ function CreateBooking({ spotId }) {
       const errorMessage = `The selected dates conflict with ${
         conflicts.length
       } existing bookings:\n\n${conflicts
-        .map((b) => `${b.startDate.slice(0, 10)} - ${b.endDate.slice(0, 10)}`)
+        .map((b) => `${b.startDate.slice(0, 10)} → ${b.endDate.slice(0, 10)}`)
         .join("\n")}`;
       setErrors([errorMessage]);
       return;
@@ -140,30 +140,36 @@ function CreateBooking({ spotId }) {
             </span>
           )}
         </div>
-        <div>
-          <label htmlFor="start-date">Start date:</label>
-          <DatePicker
-            id="start-date"
-            selected={startDate}
-            onChange={handleStartDateChange}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            minDate={new Date()}
-            dateFormat="yyyy-MM-dd"
-          />
+        <div className="date-container">
+          <div className="checkin-div">
+            <label htmlFor="start-date">CHECK-IN</label>
+            <DatePicker
+              className="date-picker"
+              id="start-date"
+              selected={startDate}
+              onChange={handleStartDateChange}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              minDate={new Date()}
+              dateFormat="yyyy-MM-dd"
+            />
+          </div>
 
-          <label htmlFor="end-date">End date:</label>
-          <DatePicker
-            id="end-date"
-            selected={endDate}
-            onChange={handleEndDateChange}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            minDate={startDate}
-            dateFormat="yyyy-MM-dd"
-          />
+          <div>
+            <label htmlFor="end-date">CHECKOUT</label>
+            <DatePicker
+              className="date-picker"
+              id="end-date"
+              selected={endDate}
+              onChange={handleEndDateChange}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              dateFormat="yyyy-MM-dd"
+            />
+          </div>
         </div>
         {errors.length > 0 && (
           <div className="error-message">
@@ -177,7 +183,7 @@ function CreateBooking({ spotId }) {
         ) : (
           <OpenModalButton
             modalComponent={<LoginFormModal />}
-            buttonText="LogIn to reserve"
+            buttonText="Login to Reserve"
           />
         )}
         <div className="fee-details-container">
