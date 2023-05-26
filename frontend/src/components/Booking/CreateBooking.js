@@ -99,14 +99,25 @@ function CreateBooking({ spotId }) {
     }
 
     if (conflicts.length > 0) {
-      const errorMessage = `The selected dates conflict with ${
-        conflicts.length
-      } existing bookings:\n\n${conflicts
-        .map((b) => `${b.startDate.slice(0, 10)} → ${b.endDate.slice(0, 10)}`)
-        .join("\n")}`;
-      setErrors([errorMessage]);
-      return;
-    }
+        const conflictedDates = conflicts.map(
+          (b) => `${b.startDate.slice(0, 10)} → ${b.endDate.slice(0, 10)}`
+        );
+        const errorMessage = (
+          <div className="error-message">
+            <p>
+              The selected dates conflict with {conflicts.length} existing
+              bookings:
+            </p>
+            <ul>
+              {conflictedDates.map((date, index) => (
+                <li key={index}>{date}</li>
+              ))}
+            </ul>
+          </div>
+        );
+        setErrors([errorMessage]);
+        return;
+      }
 
     dispatch(createBookingThunk(booking, spotId)).then(() => {
       setErrors([]);
@@ -141,7 +152,7 @@ function CreateBooking({ spotId }) {
           )}
         </div>
         <div className="date-container">
-          <div className="checkin-div">
+          <div>
             <label htmlFor="start-date">CHECK-IN</label>
             <DatePicker
               className="date-picker"
