@@ -108,6 +108,10 @@
   background-color: rgb(188, 188, 188);
 }
 
+.error-message{
+  color: rgb(227, 12, 12);
+}
+
 label {
   display: block;
   margin-bottom: 5px;
