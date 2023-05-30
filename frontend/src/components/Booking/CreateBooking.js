@@ -127,6 +127,7 @@ function CreateBooking({ spotId }) {
       const nextDay = new Date();
       nextDay.setDate(nextDay.getDate() + 1);
       setEndDate(nextDay);
+      dispatch(getSpotBookingsThunk(spotId))
       history.push('/current/bookings')
     });
   };

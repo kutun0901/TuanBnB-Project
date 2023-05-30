@@ -119,18 +119,18 @@ const bookingsReducer = (state = initialState, action) => {
                 userBookings[booking.id] = booking;
             });
             return { ...state, userBookings };
-        case CREATE_BOOKING:
-            return {
-                ...state,
-                spotBookings: {
-                    ...state.spotBookings,
-                    [action.booking.id]: action.booking,
-                },
-                userBookings: {
-                    ...state.userBookings,
-                    [action.booking.id]: action.booking,
-                },
-            };
+        // case CREATE_BOOKING:
+        //     return {
+        //         ...state,
+        //         spotBookings: {
+        //             ...state.spotBookings,
+        //             [action.booking.id]: action.booking,
+        //         }
+        //         // userBookings: {
+        //         //     ...state.userBookings,
+        //         //     [action.booking.id]: action.booking,
+        //         // },
+        //     };
         case DELETE_BOOKING:
             const newSpotBookings = { ...state.spotBookings };
             const newUserBookings = { ...state.userBookings };
