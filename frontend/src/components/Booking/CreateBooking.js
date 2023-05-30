@@ -7,8 +7,10 @@ import "./CreateBooking.css";
 import { createBookingThunk, getSpotBookingsThunk } from "../../store/booking";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
+import { useHistory } from "react-router-dom";
 
 function CreateBooking({ spotId }) {
+    const history = useHistory()
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.session.user);
   const spotBookings = Object.values(
@@ -125,6 +127,7 @@ function CreateBooking({ spotId }) {
       const nextDay = new Date();
       nextDay.setDate(nextDay.getDate() + 1);
       setEndDate(nextDay);
+      history.push('/current/bookings')
     });
   };
   return (

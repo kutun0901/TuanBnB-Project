@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserBookingsThunk } from "../../store/booking";
 import { Link } from "react-router-dom";
+import "./UserBooking.css"
 
 function UserBookings() {
     const dispatch = useDispatch();
@@ -27,8 +28,8 @@ function UserBookings() {
                                 <h3>{booking.Spot.name}</h3>
                                 <p>{booking.Spot.address}, {booking.Spot.city}, {booking.Spot.state}</p>
                                 <p>{booking.Spot.country}</p>
-                                <p>Start Date: {booking.startDate.slice(0, 10)}</p>
-                                <p>End Date: {booking.endDate.slice(0, 10)}</p>
+                                <p>Check-in: {booking.startDate.slice(0, 10)}</p>
+                                <p>Checkout: {booking.endDate.slice(0, 10)}</p>
                                 <div>
                                     <span><button>Edit</button></span>
                                     <span><button>Delete</button></span>

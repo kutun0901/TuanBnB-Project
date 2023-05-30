@@ -1,0 +1,45 @@
+.my-booking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .single-booking {
+    /* width: 90%; */
+    max-width: 400px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .booking-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .booking-info h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+
+  .booking-info p {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .booking-info button {
+    background-color: #e1494a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .booking-info button:hover {
+    background-color: #c23a3b;
+  }
