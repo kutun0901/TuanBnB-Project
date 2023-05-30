@@ -6,7 +6,7 @@ import "./UserBooking.css"
 
 function UserBookings() {
     const dispatch = useDispatch();
-    const userBookings = Object.values(useSelector(state => state.bookings.userBookings))
+    const userBookings = Object.values(useSelector(state => state.bookings.userBookings)).reverse();
 
     useEffect(() => {
         dispatch(getUserBookingsThunk())
