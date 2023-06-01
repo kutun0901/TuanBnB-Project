@@ -4,6 +4,7 @@ import { getUserBookingsThunk } from "../../store/booking";
 import { Link } from "react-router-dom";
 import "./UserBooking.css";
 import OpenModalButton from "../OpenModalButton";
+import CancelBookingModal from "./CancelBookingModal";
 
 function UserBookings() {
   const dispatch = useDispatch();
@@ -38,10 +39,12 @@ function UserBookings() {
                 <p>Checkout: {booking.endDate.slice(0, 10)}</p>
                 <div className="booking-button-container">
                   <button>Edit</button>
-                  <button>
-                    <OpenModalButton modalComponent={} buttonText="Cancel">
-                    Delete
-                    </button>
+                  <OpenModalButton
+                    modalComponent={
+                      <CancelBookingModal bookingId={booking.id} />
+                    }
+                    buttonText="Cancel"
+                  />
                 </div>
               </div>
             </div>
