@@ -46,7 +46,7 @@
   margin-bottom: 8px;
 }
 
-.booking-details button {
+.reserve-button {
   background-color: #f7b500;
   border: none;
   border-radius: 4px;
@@ -120,6 +120,7 @@ label {
 .date-picker {
   margin-bottom: 5px;
   border: none;
+  outline: none;
 }
 
 

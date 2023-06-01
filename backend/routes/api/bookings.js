@@ -175,10 +175,10 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
 
     if (user.id === booking.userId || user.id === spot.ownerId) {
 
-        if (currentDate >= booking.startDate.getTime() && currentDate <= booking.endDate.getTime()) {
+        if (currentDate >= booking.startDate.getTime()) {
             res.status(403);
             return res.json({
-                "message": "Bookings that have been started can't be deleted",
+                "message": "Bookings that have already started can't be deleted",
                 "statusCode": 403
             })
         }
@@ -191,12 +191,12 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     } else {
         res.status(403)
         return res.json({
-            "message": "forbidden",
+            "message": "You do not have permission to delete this booking.",
             "statusCode": 403
         })
     }
+});
 
 
-})
 
 module.exports = router;
