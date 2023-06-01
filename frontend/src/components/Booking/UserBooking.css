@@ -29,6 +29,13 @@
     margin-bottom: 5px;
   }
 
+  .booking-button-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+  }
+
   .booking-info button {
     background-color: #e1494a;
     color: white;
@@ -37,6 +44,7 @@
     padding: 10px 20px;
     margin-top: 10px;
     cursor: pointer;
+    width: 100%;
   }
 
   .booking-info button:hover {

@@ -30,7 +30,7 @@ function UserBookings() {
                                 <p>{booking.Spot.country}</p>
                                 <p>Check-in: {booking.startDate.slice(0, 10)}</p>
                                 <p>Checkout: {booking.endDate.slice(0, 10)}</p>
-                                <div>
+                                <div className="booking-button-container">
                                     <span><button>Edit</button></span>
                                     <span><button>Delete</button></span>
                                 </div>
