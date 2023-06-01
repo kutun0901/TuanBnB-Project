@@ -194,7 +194,7 @@ function CreateBooking({ spotId }) {
           </div>
         )}
         {currentUser ? (
-          <button onClick={handleBooking}>Reserve</button>
+          <button className="reserve-button" onClick={handleBooking}>Reserve</button>
         ) : (
           <OpenModalButton
             modalComponent={<LoginFormModal />}
