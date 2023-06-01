@@ -43,7 +43,7 @@ function UserBookings() {
                     modalComponent={
                       <CancelBookingModal bookingId={booking.id} />
                     }
-                    buttonText="Cancel"
+                    buttonText="Delete"
                   />
                 </div>
               </div>

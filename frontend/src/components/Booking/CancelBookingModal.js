@@ -8,7 +8,7 @@ function CancelBookingModal({ bookingId }) {
     const {closeModal} = useModal();
 
 
-    const handleCancelBooking = async (bookingId) => {
+    const handleCancelBooking = async () => {
         await dispatch(deleteBookingThunk(bookingId))
         .then(closeModal())
     }
