@@ -59,6 +59,19 @@
   width: 100%;
 }
 
+.reserve-button button {
+  background-color: #FF5A5F;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  /* margin-top: 16px; */
+  /* padding: 12px 24px; */
+  width: 100%;
+}
+
 .fee-details-container {
   margin-top: 12px;
 }
@@ -89,7 +102,7 @@
 
 .date-container {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-around;
   align-items: center;
   border: 1px solid rgb(188, 188, 188);
   padding: 10px;

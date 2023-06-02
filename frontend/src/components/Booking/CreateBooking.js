@@ -196,10 +196,12 @@ function CreateBooking({ spotId }) {
         {currentUser ? (
           <button className="reserve-button" onClick={handleBooking}>Reserve</button>
         ) : (
-          <OpenModalButton
-            modalComponent={<LoginFormModal />}
-            buttonText="Login to Reserve"
-          />
+            <button className="reserve-button">
+                <OpenModalButton
+                  modalComponent={<LoginFormModal />}
+                  buttonText="Login to Reserve"
+                />
+            </button>
         )}
         <div className="fee-details-container">
           <p>You won't be charged yet</p>

@@ -101,6 +101,7 @@ export const deleteBookingThunk = (id) => async (dispatch) => {
       return null;
     } else if (response.status < 500) {
       const data = await response.json();
+      console.log("Data from response:", data); // Add this console.log statement
       if (data) {
         return data.message;
       }
@@ -108,6 +109,7 @@ export const deleteBookingThunk = (id) => async (dispatch) => {
       return "An Error occurred. Please try again later.";
     }
   };
+
 
 const initialState = { spotBookings: {}, userBookings: {} };
 

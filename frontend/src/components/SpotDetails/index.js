@@ -22,7 +22,6 @@ function SpotDetails() {
     if (currentUser) isLoggedIn = true;
 
 
-
     let reviewsArr = Object.values(spotReviews).reverse();
 
     useEffect(() => {
@@ -50,7 +49,7 @@ function SpotDetails() {
 
             for (let i = 0; i < 5; i++) {
                 if (!spotImages[i]) {
-                    spotImages[i] = ('https://electricmirror.com/wp-content/uploads/2022/05/image-coming-soon-300x300.jpg');
+                    spotImages[i] = ('https://papapita.com/file/2020/02/Image-Coming-Soon-Placeholder.jpg');
                 }
             }
         }
@@ -71,14 +70,10 @@ function SpotDetails() {
                     </div>
 
                     <div className="four-img">
-                        <div className="preview-container">
                             <img className='spotImage2' src={spotImages[1]}></img>
                             <img className='spotImage3' src={spotImages[2]}></img>
-                        </div>
-                        <div className="preview-container">
                             <img className='spotImage4' src={spotImages[3]}></img>
                             <img className='spotImage5' src={spotImages[4]}></img>
-                        </div>
                     </div>
                 </div>
                 <div className="description-price-container">
