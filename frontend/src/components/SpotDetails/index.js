@@ -70,14 +70,10 @@ function SpotDetails() {
                     </div>
 
                     <div className="four-img">
-                        <div className="preview-container">
                             <img className='spotImage2' src={spotImages[1]}></img>
                             <img className='spotImage3' src={spotImages[2]}></img>
-                        </div>
-                        <div className="preview-container">
                             <img className='spotImage4' src={spotImages[3]}></img>
                             <img className='spotImage5' src={spotImages[4]}></img>
-                        </div>
                     </div>
                 </div>
                 <div className="description-price-container">

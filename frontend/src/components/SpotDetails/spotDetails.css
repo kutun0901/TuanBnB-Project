@@ -3,48 +3,38 @@
   flex-wrap: wrap;
   object-fit: cover;
   justify-content: center;
+  padding: 0 20%;
 }
 
 .spotImg-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  margin-bottom: 20px;
 }
 
 .left-img {
-  flex: 1;
-  margin-right: 10px;
-  height: 412px;
   display: flex;
-  width: 50%;
-  overflow: hidden;
-}
-
-.spotImage1{
   object-fit: fill;
 }
 
 .four-img {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex: 1;
-  justify-content: space-between;
-  align-items: center;
-  height: 412px;
-  overflow: hidden;
-  width: 50%;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
 }
 
 
-.four-img div {
-  width: 50%;
-  height: 205px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
+/* .spotImage1,
+.spotImage2,
+.spotImage3,
+.spotImage4,
+.spotImage5 {
+  width: 100%;
+  height: auto;
+} */
 
 .preview-container{
   gap: 10px;
