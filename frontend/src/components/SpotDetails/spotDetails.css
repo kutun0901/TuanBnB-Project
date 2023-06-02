@@ -13,10 +13,14 @@
 .left-img {
   flex: 1;
   margin-right: 10px;
-  object-fit: cover;
   height: 412px;
   display: flex;
   width: 50%;
+  overflow: hidden;
+}
+
+.spotImage1{
+  object-fit: fill;
 }
 
 .four-img {
@@ -27,7 +31,7 @@
   justify-content: space-between;
   align-items: center;
   height: 412px;
-  object-fit: fill;
+  overflow: hidden;
   width: 50%;
 }
 
