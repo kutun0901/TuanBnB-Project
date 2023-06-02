@@ -53,7 +53,48 @@ module.exports = {
         url: 'https://vwartclub.com/media/projects/4072/1.jpg',
         preview: true,
         spotId: 6
+      },
+      {
+        url: 'https://lovehomedesigns.com/wp-content/uploads/2022/01/cute-house-012522.jpg',
+        preview: true,
+        spotId: 7,
+      },
+      {
+        url: 'https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg',
+        preview: true,
+        spotId: 8,
+      },
+      {
+        url: 'https://static01.nyt.com/images/2022/07/25/realestate/25WYG-CA-01/25WYG-CA-videoSixteenByNine3000.jpg',
+        preview: true,
+        spotId: 9,
+      },
+      {
+        url: 'https://ychef.files.bbci.co.uk/976x549/p053m19p.jpg',
+        preview: true,
+        spotId: 10,
+      },
+      {
+        url: 'https://architecturebeast.com/wp-content/uploads/2014/09/Most_Beautiful_Houses_In_The_World_House_M_featured_on_architecture_beast_39.jpg',
+        preview: true,
+        spotId: 11,
+      },
+      {
+        url: 'https://loveincorporated.blob.core.windows.net/contentimages/main/b52d3a71-bbc8-4640-9592-cce763ed5e07-glass-house-british-columbia.jpg',
+        preview: true,
+        spotId: 12,
+      },
+      {
+        url: 'https://i.natgeofe.com/k/ef406556-cfda-4e59-973c-7167c3246b10/a-8-wacky-houses-hobbit-home_16x9.jpg',
+        preview: true,
+        spotId: 13,
+      },
+      {
+        url: 'https://m.cbhomes.com/p/279/23005225/7A6c823048414F0/original.jpeg',
+        preview: true,
+        spotId: 14
       }
+
 
     ])
   },
