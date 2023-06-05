@@ -92,24 +92,24 @@ export const updateBookingThunk = (booking, id) => async (dispatch) => {
 };
 
 export const deleteBookingThunk = (id) => async (dispatch) => {
-    const response = await csrfFetch(`/api/bookings/${id}`, {
-      method: "DELETE",
-    });
+  const response = await csrfFetch(`/api/bookings/${id}`, {
+    method: "DELETE",
+  });
 
-    if (response.ok) {
-      dispatch(deleteBooking(id));
-      return null;
-    } else if (response.status < 500) {
-      const data = await response.json();
-      console.log("Data from response:", data); // Add this console.log statement
-      if (data) {
-        return data.message;
-      }
-    } else {
-      return "An Error occurred. Please try again later.";
-    }
-  };
-
+  if (response.ok) {
+    dispatch(deleteBooking(id));
+    return null;
+  } else if (response.status < 500) {
+    const data = await response.json();
+    // console.log("------------------------")
+    // console.log(data)
+    // console.log("------------------------")
+    return data;
+  } else {
+    console.log("here")
+    return "An Error occurred. Please try again later.";
+  }
+};
 
 const initialState = { spotBookings: {}, userBookings: {} };
 
