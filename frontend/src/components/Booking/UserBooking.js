@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import "./UserBooking.css";
 import OpenModalButton from "../OpenModalButton";
 import CancelBookingModal from "./CancelBookingModal";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function UserBookings() {
+  const currentUser = useSelector((state) => state.session.user);
+  const history = useHistory()
   const dispatch = useDispatch();
   const userBookings = Object.values(
     useSelector((state) => state.bookings.userBookings)
@@ -15,6 +18,8 @@ function UserBookings() {
   useEffect(() => {
     dispatch(getUserBookingsThunk());
   }, [dispatch]);
+
+  if (!currentUser) history.push("/")
 
   return (
     <>
