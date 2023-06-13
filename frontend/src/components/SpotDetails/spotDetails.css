@@ -116,7 +116,7 @@ img {
 
 
 .main-reviews-container {
-  border-top: 2px solid black;
+  border-top: 2px solid rgb(164, 151, 151);
   margin-top: 25px;
 }
 
@@ -151,4 +151,8 @@ img {
 
 .description-price-container h3{
   font-size: 28px;
+}
+
+.map-wrapper{
+  border-top: 2px solid rgb(164, 151, 151);
 }

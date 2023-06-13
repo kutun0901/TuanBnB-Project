@@ -127,8 +127,10 @@ function SpotDetails() {
                             )}
                         </div>
                     </div>
-
+                    <div className="map-wrapper">
+                    <h3>Where you'll be</h3>
                     <Map spot={spot} />
+                    </div>
 
                 </div>
             </div>
