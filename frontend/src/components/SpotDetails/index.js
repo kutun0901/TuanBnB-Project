@@ -127,9 +127,9 @@ function SpotDetails() {
                             )}
                         </div>
                     </div>
-                    <div>
+
                     <Map spot={spot} />
-                    </div>
+
                 </div>
             </div>
         </div>
