@@ -9,6 +9,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteReviewModal from "../DeleteReviewModal";
 import PostReviewModal from "../PostReviewModal";
 import CreateBooking from "../Booking/CreateBooking";
+import Map from "./Map";
 
 function SpotDetails() {
     const dispatch = useDispatch();
@@ -66,14 +67,14 @@ function SpotDetails() {
                 <div className="spot-locations"><span>{spot.city}, {spot.state}, {spot.country}</span></div>
                 <div className="spotImg-container">
                     <div className="left-img">
-                        <img className='spotImage1' src={spotImages[0]}></img>
+                        <img className='spotImage1' src={spotImages[0]} alt="spot-description"></img>
                     </div>
 
                     <div className="four-img">
-                            <img className='spotImage2' src={spotImages[1]}></img>
-                            <img className='spotImage3' src={spotImages[2]}></img>
-                            <img className='spotImage4' src={spotImages[3]}></img>
-                            <img className='spotImage5' src={spotImages[4]}></img>
+                            <img className='spotImage2' src={spotImages[1]} alt="spot-description"></img>
+                            <img className='spotImage3' src={spotImages[2]} alt="spot-description"></img>
+                            <img className='spotImage4' src={spotImages[3]} alt="spot-description"></img>
+                            <img className='spotImage5' src={spotImages[4]} alt="spot-description"></img>
                     </div>
                 </div>
                 <div className="description-price-container">
@@ -125,7 +126,9 @@ function SpotDetails() {
                                 <p>Be the first to post a review!</p>
                             )}
                         </div>
-
+                    </div>
+                    <div>
+                    <Map spot={spot} />
                     </div>
                 </div>
             </div>
