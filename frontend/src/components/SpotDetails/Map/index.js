@@ -9,7 +9,7 @@ export default function Map({ spot }) {
 
     // console.log(process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY)
 
-    const center = useMemo(() => ({lat: 37.7749, lng: -122.4194}), [])
+    const center = useMemo(() => ({lat: Number(spot.lat), lng: Number(spot.lng)}), [])
 
     if (!isLoaded) return <div>Loading...</div>
 
