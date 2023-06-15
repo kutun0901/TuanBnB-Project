@@ -3,10 +3,10 @@ import { useMemo } from "react"
 import "./Map.css"
 
 export default function Map({ spot }) {
-    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    // const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
     const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: apiKey,
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     });
 
     const center = useMemo(() => ({lat: Number(spot.lat), lng: Number(spot.lng)}), [spot])
