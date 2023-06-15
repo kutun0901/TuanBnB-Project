@@ -113,7 +113,7 @@ function SpotDetails() {
                                         <div className="review-date">{review.createdAt.slice(0, 10)}</div>
                                     </div>
                                     <div className="review">{review.review}</div>
-                                    <div>
+                                    <div className="delete-review-button" >
                                         {(isLoggedIn && currentUser.id === review.userId) && (
                                             <OpenModalButton className="delete-review-button" modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />} buttonText="Delete" />
                                         )}
